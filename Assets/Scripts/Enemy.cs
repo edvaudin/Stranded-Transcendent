@@ -77,7 +77,11 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnDeath()
     {
-        Instantiate(lootTable.GetRandomPickup(), transform.position, Quaternion.identity);
+        if (lootTable.WillReceiveDrop())
+        {
+            Instantiate(lootTable.GetRandomPickup(), transform.position, Quaternion.identity);
+        }
+        
         Destroy(gameObject);
     }
 
