@@ -7,9 +7,11 @@ public class AIController : MonoBehaviour
 {
     protected NavMeshAgent agent;
     private GameObject player;
+    private Health health;
     private Health playerHealth;
     [SerializeField] protected float chaseDistance = 10f;
     [SerializeField] protected float rotationDamping = 0.2f;
+
     private float timeSinceLastSawPlayer = Mathf.Infinity;
 
     private void Awake()
@@ -17,6 +19,8 @@ public class AIController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
         playerHealth = player.GetComponent<Health>();
+        health = GetComponent<Health>();
+        health.died += OnDeath;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         SampleAreaIfNotOnNavMesh();
@@ -70,6 +74,15 @@ public class AIController : MonoBehaviour
         return distanceToPlayer < chaseDistance;
     }
 
+    protected virtual void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnDisable()
+    {
+        health.died -= OnDeath;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

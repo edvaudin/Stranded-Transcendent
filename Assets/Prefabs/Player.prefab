@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8949007748105458859}
   - component: {fileID: 8949007748105458856}
   - component: {fileID: 1598421077}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 8949007748496366788}
   - component: {fileID: 8949007748496366791}
   - component: {fileID: 1496341340}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8949007748836043480}
   - component: {fileID: 8949007748836043483}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

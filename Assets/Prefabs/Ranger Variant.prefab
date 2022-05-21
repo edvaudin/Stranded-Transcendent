@@ -81,6 +81,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseDistance: 10
   rotationDamping: 7.5
-  projectile: {fileID: 9078726332070541798, guid: 980d042edbf008644ae61ec5a1abdd71, type: 3}
+  projectile: {fileID: -706952548970084690, guid: 096a0eebd0003244183a110c22d3c8d2, type: 3}
   fireRate: 1
   projectileSpawnGap: 2

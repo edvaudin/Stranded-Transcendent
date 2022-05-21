@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private AudioSource audioSource;
-    [SerializeField] float speed = 20f;
-    [SerializeField] int damage = 1;
-    [SerializeField] float minPitch = 0.9f;
-    [SerializeField] float maxPitch = 1.1f;
-    private float rangeTimer = 0;
-    [SerializeField] float rangeInSeconds = 1.5f;
+    protected Rigidbody2D rb;
+    protected AudioSource audioSource;
+    protected Collider2D collider;
+    [SerializeField] protected float speed = 20f;
+    [SerializeField] protected int damage = 1;
+    [SerializeField] protected float minPitch = 0.9f;
+    [SerializeField] protected float maxPitch = 1.1f;
+    protected float rangeTimer = 0;
+    [SerializeField] protected float rangeInSeconds = 1.5f;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
     }
+
 
     protected virtual void Update()
     {
@@ -28,15 +30,15 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    public virtual void Launch(Vector3 playerVelocity)
-    {
-        rb.AddForce((transform.up * speed) + playerVelocity.normalized, ForceMode2D.Impulse);
+    public virtual void Launch(Vector3 velocity)
+    {   
+        rb.AddForce((transform.up * speed) + velocity.normalized, ForceMode2D.Impulse);
 
         audioSource.pitch = Random.Range(minPitch, maxPitch);
         audioSource.Play();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<Health>(out Health health))
         {
@@ -45,11 +47,15 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.TryGetComponent<Health>(out _))
+        if (collision.transform.parent != null)
         {
-            Destroy(gameObject);
+            if (!collision.transform.parent.TryGetComponent<Health>(out _))
+            {
+                Destroy(gameObject);
+            }
         }
+        
     }
 }

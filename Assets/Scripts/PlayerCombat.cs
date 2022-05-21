@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
+    [SerializeField] float fireRate = 0.5f;
+    private float timeSinceLastFired = Mathf.Infinity;
     [SerializeField] float projectileSpawnGap = 2f;
     [SerializeField] AudioClip hurt;
     private PlayerInput playerInput;
@@ -14,7 +16,8 @@ public class PlayerCombat : MonoBehaviour
     private PlayerMovement playerMovement;
     private Health health;
     private AudioSource audioSource;
-    InputAction fire;
+    private Vector2 currentFireDirection = Vector2.up;
+    private bool firing = false;
 
     private void Awake()
     {
@@ -28,17 +31,30 @@ public class PlayerCombat : MonoBehaviour
     {
         if (!playerInput.ControlsInitialized) { playerInput.InitializeControls(); }
         controls = playerInput.PlayerController;
-        controls.MK.Fire.performed += ctx => Fire(ctx.ReadValue<Vector2>());
-        fire = controls.MK.Fire;
-        fire.Enable();
+        controls.MK.Fire.performed += OnFire;
         health.died += OnDeath;
         health.changed += PlayHurt;
     }
 
+    private void Update()
+    {
+        if (firing && timeSinceLastFired > fireRate)
+        {
+            Fire(currentFireDirection);
+            timeSinceLastFired = 0;
+        }
+        timeSinceLastFired += Time.deltaTime;
+    }
+    private void OnFire(InputAction.CallbackContext ctx)
+    {
+        firing = ctx.control.IsPressed();
+        currentFireDirection = ctx.ReadValue<Vector2>();
+        RotatePlayer(ctx.ReadValue<Vector2>());
+    }
     private void Fire(Vector2 fireDirection)
     {
         if (!gameObject.scene.IsValid()) { return; }
-        RotatePlayer(fireDirection);
+        
 
         Vector3 spawnPoint = transform.position + transform.up * projectileSpawnGap;
         spawnPoint.z = transform.position.z;
@@ -77,7 +93,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnDisable()
     {
-        fire.Disable();
+        controls.MK.Fire.performed -= OnFire;
         health.died -= OnDeath;
     }
 }
