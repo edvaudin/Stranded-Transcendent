@@ -49,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
         if (move.ReadValue<Vector2>().magnitude > Mathf.Epsilon)
         {
             Move(move.ReadValue<Vector2>());
-            CurrentVelocity = rb.velocity;
         }
+        CurrentVelocity = rb.velocity;
     }
 
     void Move(Vector2 direction)

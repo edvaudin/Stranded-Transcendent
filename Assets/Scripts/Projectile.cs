@@ -10,8 +10,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] int damage = 1;
     [SerializeField] float minPitch = 0.9f;
     [SerializeField] float maxPitch = 1.1f;
-    private float cleanUpTimer = 0;
-    [SerializeField] float cleanUpTime = 10f;
+    private float rangeTimer = 0;
+    [SerializeField] float rangeInSeconds = 1.5f;
 
     private void Awake()
     {
@@ -21,11 +21,10 @@ public class Projectile : MonoBehaviour
 
     protected virtual void Update()
     {
-        cleanUpTimer += Time.deltaTime;
-        if (cleanUpTimer > cleanUpTime)
+        rangeTimer += Time.deltaTime;
+        if (rangeTimer > rangeInSeconds)
         {
-            Debug.Log("Destroyed projectile in garabage collection");
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 
