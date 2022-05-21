@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float minMoveSpeed = 4f;
+    [SerializeField] float maxMoveSpeed = 15f;
     public Vector3 CurrentVelocity { get; private set; }
 
     InputAction move;
@@ -51,6 +53,11 @@ public class PlayerMovement : MonoBehaviour
             Move(move.ReadValue<Vector2>());
         }
         CurrentVelocity = rb.velocity;
+    }
+
+    public void AdjustMoveSpeed(float delta)
+    {
+        moveSpeed = Mathf.Clamp(moveSpeed + delta, minMoveSpeed, maxMoveSpeed);
     }
 
     void Move(Vector2 direction)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIController : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     protected NavMeshAgent agent;
     private GameObject player;
@@ -11,6 +11,7 @@ public class AIController : MonoBehaviour
     private Health playerHealth;
     [SerializeField] protected float chaseDistance = 10f;
     [SerializeField] protected float rotationDamping = 0.2f;
+    [SerializeField] LootTable lootTable;
 
     private float timeSinceLastSawPlayer = Mathf.Infinity;
 
@@ -76,7 +77,13 @@ public class AIController : MonoBehaviour
 
     protected virtual void OnDeath()
     {
+        Instantiate(lootTable.GetRandomPickup(), transform.position, Quaternion.identity);
         Destroy(gameObject);
+    }
+
+    protected virtual IEnumerator DeathRoutine()
+    {
+        yield return null;
     }
 
     private void OnDisable()

@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseDistance: 7
   rotationDamping: 7.5
+  lootTable: {fileID: 11400000, guid: 4d33453da25cfca42b714c542ae15a06, type: 2}
 --- !u!114 &7070683237868961905
 MonoBehaviour:
   m_ObjectHideFlags: 0

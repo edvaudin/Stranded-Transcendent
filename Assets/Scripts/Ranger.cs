@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ranger : AIController
+public class Ranger : Enemy
 {
     [SerializeField] Projectile projectile;
     [SerializeField] float fireRate = 1f;

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d027e4e09bd4504a8b740f7188b3b4a, type: 3}
-  m_Name: FireDelayReducer
+  m_Name: MoveSpeedIncreaser
   m_EditorClassIdentifier: 
-  displayName: Cocaine
-  description: Reduces fire delay by 0.2s.
-  icon: {fileID: 21300000, guid: 067c8a4efb4da714486acc41a2115ec5, type: 3}
+  displayName: Sandals of Haste
+  description: Increases move speed.
+  icon: {fileID: 21300000, guid: a7f0273ab6876e740b9ca3d8db7e6a0e, type: 3}

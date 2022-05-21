@@ -9,7 +9,8 @@ namespace TAG.UI
     public class PickupPanel : MonoBehaviour
     {
         [SerializeField] private Image itemImage;
-        private TMP_Text itemName;
+        [SerializeField] private TMP_Text itemName;
+        [SerializeField] private TMP_Text itemDescription;
         private CanvasGroup panel;
 
         private void Awake()
@@ -21,7 +22,6 @@ namespace TAG.UI
         private void GetComponents()
         {
             panel = GetComponent<CanvasGroup>();
-            itemName = GetComponentInChildren<TMP_Text>();
         }
 
         void OnEnable()
@@ -38,12 +38,13 @@ namespace TAG.UI
         {
             itemName.text = pickup.displayName;
             itemImage.sprite = pickup.icon;
+            itemDescription.text = pickup.description;
             StartCoroutine(ShowPickupPanel());
         }
         private IEnumerator ShowPickupPanel()
         {
             panel.alpha = 1;
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(3f);
             panel.alpha = 0;
         }
     }
