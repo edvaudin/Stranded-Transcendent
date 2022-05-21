@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chaseDistance: 7
-  rotationDamping: 0.2
+  rotationDamping: 7.5
 --- !u!114 &7070683237868961905
 MonoBehaviour:
   m_ObjectHideFlags: 0

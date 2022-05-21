@@ -14,6 +14,7 @@ public class PlayerCombat : MonoBehaviour
     private PlayerMovement playerMovement;
     private Health health;
     private AudioSource audioSource;
+    InputAction fire;
 
     private void Awake()
     {
@@ -28,6 +29,8 @@ public class PlayerCombat : MonoBehaviour
         if (!playerInput.ControlsInitialized) { playerInput.InitializeControls(); }
         controls = playerInput.PlayerController;
         controls.MK.Fire.performed += ctx => Fire(ctx.ReadValue<Vector2>());
+        fire = controls.MK.Fire;
+        fire.Enable();
         health.died += OnDeath;
         health.changed += PlayHurt;
     }
@@ -74,6 +77,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnDisable()
     {
+        fire.Disable();
         health.died -= OnDeath;
     }
 }

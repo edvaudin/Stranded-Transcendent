@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
-    private NavMeshAgent agent;
+    protected NavMeshAgent agent;
     private GameObject player;
     private Health playerHealth;
-    [SerializeField] float chaseDistance = 10f;
-    [SerializeField] float rotationDamping = 0.2f;
+    [SerializeField] protected float chaseDistance = 10f;
+    [SerializeField] protected float rotationDamping = 0.2f;
     private float timeSinceLastSawPlayer = Mathf.Infinity;
 
     private void Awake()
