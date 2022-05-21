@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] GameObject projectile;
-    [SerializeField] float fireRate = 0.5f;
+    [field: SerializeField] public float FireDelay { get; private set; } = 0.5f;
+    [SerializeField] float minFireDelay = 0.1f;
+    [SerializeField] float maxFireDelay = 1f;
     private float timeSinceLastFired = Mathf.Infinity;
     [SerializeField] float projectileSpawnGap = 2f;
     [SerializeField] AudioClip hurt;
@@ -38,7 +40,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if (firing && timeSinceLastFired > fireRate)
+        if (firing && timeSinceLastFired > FireDelay)
         {
             Fire(currentFireDirection);
             timeSinceLastFired = 0;
@@ -54,8 +56,6 @@ public class PlayerCombat : MonoBehaviour
     private void Fire(Vector2 fireDirection)
     {
         if (!gameObject.scene.IsValid()) { return; }
-        
-
         Vector3 spawnPoint = transform.position + transform.up * projectileSpawnGap;
         spawnPoint.z = transform.position.z;
         var projectileInstance = Instantiate(projectile, spawnPoint, transform.rotation);
@@ -80,6 +80,11 @@ public class PlayerCombat : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(0, 0, 180);
         }
+    }
+
+    public void AdjustFireDelay(float delta)
+    {
+        FireDelay = Mathf.Clamp(FireDelay + delta, minFireDelay, maxFireDelay);
     }
 
     private void PlayHurt(int heatlh)

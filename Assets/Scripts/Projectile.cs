@@ -31,8 +31,9 @@ public class Projectile : MonoBehaviour
     }
 
     public virtual void Launch(Vector3 velocity)
-    {   
-        rb.AddForce((transform.up * speed) + velocity.normalized, ForceMode2D.Impulse);
+    {
+        Vector3 adjustment = velocity.magnitude > 1f ? velocity.normalized : Vector3.zero;
+        rb.AddForce((transform.up * speed) + adjustment, ForceMode2D.Impulse);
 
         audioSource.pitch = Random.Range(minPitch, maxPitch);
         audioSource.Play();
