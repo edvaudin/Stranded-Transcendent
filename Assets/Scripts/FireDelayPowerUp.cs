@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireDelayPowerUp : PowerUp
+public class FireDelayPowerUp : Pickup
 {
     [SerializeField] float delta = -0.2f;
-    protected override void PowerUpPayload(GameObject player)
+    protected override void Payload(GameObject player)
     {
-        base.PowerUpPayload(player);
+        base.Payload(player);
         player.GetComponent<PlayerCombat>().AdjustFireDelay(delta);
     }
 }

@@ -18,7 +18,6 @@ public class PlayerCombat : MonoBehaviour
     private PlayerMovement playerMovement;
     private Health health;
     private AudioSource audioSource;
-    private Vector2 currentFireDirection = Vector2.up;
     private bool firing = false;
 
     private void Awake()
@@ -42,18 +41,19 @@ public class PlayerCombat : MonoBehaviour
     {
         if (firing && timeSinceLastFired > FireDelay)
         {
-            Fire(currentFireDirection);
+            Fire();
             timeSinceLastFired = 0;
         }
         timeSinceLastFired += Time.deltaTime;
     }
+
+    // Is currently sticky as holding one key blocks event invocation for other keys in composite.
     private void OnFire(InputAction.CallbackContext ctx)
     {
         firing = ctx.control.IsPressed();
-        currentFireDirection = ctx.ReadValue<Vector2>();
         RotatePlayer(ctx.ReadValue<Vector2>());
     }
-    private void Fire(Vector2 fireDirection)
+    private void Fire()
     {
         if (!gameObject.scene.IsValid()) { return; }
         Vector3 spawnPoint = transform.position + transform.up * projectileSpawnGap;
