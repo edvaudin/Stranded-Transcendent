@@ -41,16 +41,15 @@ public class AIController : MonoBehaviour
         timeSinceLastSawPlayer = 0;
         agent.isStopped = false;
         agent.SetDestination(player.transform.position);
-        //ApplyManualRotation();
+        ApplyManualRotation();
     }
 
     private void ApplyManualRotation()
     {
         var lookPos = player.transform.position - transform.position;
-        lookPos.y = 0;
-        lookPos.x = 0;
-        var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationDamping * Time.deltaTime);
+        var angle = Mathf.Atan2(lookPos.y, lookPos.x);
+        var targetRotation = Quaternion.Euler(0, 0, (angle * Mathf.Rad2Deg) - 90);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationDamping * Time.deltaTime);
     }
 
     private void SampleAreaIfNotOnNavMesh()
