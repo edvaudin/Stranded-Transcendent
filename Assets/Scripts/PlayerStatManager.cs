@@ -4,10 +4,30 @@ using UnityEngine;
 
 public class PlayerStatManager : MonoBehaviour
 {
-    [SerializeField] PlayerStats playerStats;
+    private static PlayerStatManager instance;
+    public static PlayerStatManager Instance { get { return instance; } }
 
-    private void SavePlayerStats()
+    public Stat fireDelay;
+    public Stat moveSpeed;
+    public Stat projectileSpeed;
+
+    private void Awake()
     {
-        playerStats.SaveAllStats();
+        // If no Player ever existed, we are it.
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+            fireDelay.SetValueToBase();
+            moveSpeed.SetValueToBase();
+            projectileSpeed.SetValueToBase();
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
     }
+
+
 }

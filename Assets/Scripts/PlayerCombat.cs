@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
-    [SerializeField] Stat fireDelay;
-    [SerializeField] Stat projectileSpeed;
     [SerializeField] GameObject projectile;
     [SerializeField] float currentFireDelay;
     [SerializeField] float currentProjectileSpeed = 20f;
@@ -21,6 +19,7 @@ public class PlayerCombat : MonoBehaviour
     private Health health;
     private AudioSource audioSource;
     private bool firing = false;
+    private PlayerStatManager psm;
 
     private void Awake()
     {
@@ -28,14 +27,15 @@ public class PlayerCombat : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         health = GetComponent<Health>();
         audioSource = GetComponent<AudioSource>();
-        fireDelay.valueChanged += UpdateFireDelay;
-        projectileSpeed.valueChanged += UpdateProjectileSpeed;
+        psm = FindObjectOfType<PlayerStatManager>();
+        psm.fireDelay.valueChanged += UpdateFireDelay;
+        psm.projectileSpeed.valueChanged += UpdateProjectileSpeed;
     }
 
     private void Start()
     {
-        fireDelay.SetValue(fireDelay.BaseValue);
-        projectileSpeed.SetValue(projectileSpeed.BaseValue);
+        currentFireDelay = psm.fireDelay.Value;
+        currentProjectileSpeed = psm.projectileSpeed.Value;
     }
 
     private void OnEnable()
@@ -97,7 +97,7 @@ public class PlayerCombat : MonoBehaviour
     private void UpdateProjectileSpeed(float newValue) { currentProjectileSpeed = newValue; }
     public void AdjustFireDelay(float delta)
     {
-        fireDelay.AdjustValue(delta);
+        psm.fireDelay.AdjustValue(delta);
     }
 
     private void PlayHurt(int heatlh)
@@ -113,7 +113,7 @@ public class PlayerCombat : MonoBehaviour
     {
         controls.MK.Fire.performed -= OnFire;
         health.died -= OnDeath;
-        fireDelay.valueChanged -= UpdateFireDelay;
-        projectileSpeed.valueChanged -= UpdateProjectileSpeed;
+        psm.fireDelay.valueChanged -= UpdateFireDelay;
+        psm.projectileSpeed.valueChanged -= UpdateProjectileSpeed;
     }
 }

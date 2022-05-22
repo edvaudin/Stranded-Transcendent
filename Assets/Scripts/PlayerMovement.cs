@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] Stat moveSpeed;
+    private PlayerStatManager psm;
     private PlayerInput playerInput;
     private PlayerControls controls;
 
@@ -21,12 +21,13 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = FindObjectOfType<PlayerInput>();
-        moveSpeed.valueChanged += UpdateMoveSpeed;
+        psm = FindObjectOfType<PlayerStatManager>();
+        psm.moveSpeed.valueChanged += UpdateMoveSpeed;
     }
 
     private void Start()
     {
-        moveSpeed.SetValue(moveSpeed.BaseValue);
+        currentMoveSpeed = psm.moveSpeed.Value;
     }
 
     private void UpdateMoveSpeed(float newValue) { currentMoveSpeed = newValue; }
@@ -51,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         move.Disable();
         controls.MK.Restart.performed -= ReloadScene;
         controls.MK.Exit.performed -= Quit;
-        moveSpeed.valueChanged -= UpdateMoveSpeed;
+        psm.moveSpeed.valueChanged -= UpdateMoveSpeed;
     }
 
     private void FixedUpdate()
@@ -65,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void AdjustMoveSpeed(float delta)
     {
-        moveSpeed.AdjustValue(delta);
+        psm.moveSpeed.AdjustValue(delta);
     }
 
     void Move(Vector2 direction)
