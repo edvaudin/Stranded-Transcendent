@@ -30,6 +30,11 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
+    }
+
     public virtual void Launch(Vector3 velocity)
     {
         Vector3 adjustment = velocity.magnitude > 1f ? velocity.normalized : Vector3.zero;

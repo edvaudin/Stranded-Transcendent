@@ -24,7 +24,7 @@ public class Health : MonoBehaviour
     {
         if (IsDead) { return; }
         CurrentHealth -= damage;
-        Debug.Log($"{gameObject.name} just took {damage} damage!");
+        //Debug.Log($"{gameObject.name} just took {damage} damage!");
 
         if (CurrentHealth <= 0) {
             died?.Invoke();

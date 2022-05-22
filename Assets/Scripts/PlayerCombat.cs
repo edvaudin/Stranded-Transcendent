@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [SerializeField] Stat fireDelay;
+    [SerializeField] Stat projectileSpeed;
     [SerializeField] GameObject projectile;
-    [field: SerializeField] public float FireDelay { get; private set; } = 0.5f;
-    [SerializeField] float minFireDelay = 0.1f;
-    [SerializeField] float maxFireDelay = 1f;
+    [SerializeField] float currentFireDelay;
+    [SerializeField] float currentProjectileSpeed = 20f;
     private float timeSinceLastFired = Mathf.Infinity;
     [SerializeField] float projectileSpawnGap = 2f;
     [SerializeField] AudioClip hurt;
@@ -26,6 +28,14 @@ public class PlayerCombat : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         health = GetComponent<Health>();
         audioSource = GetComponent<AudioSource>();
+        fireDelay.valueChanged += UpdateFireDelay;
+        projectileSpeed.valueChanged += UpdateProjectileSpeed;
+    }
+
+    private void Start()
+    {
+        fireDelay.SetValue(fireDelay.BaseValue);
+        projectileSpeed.SetValue(projectileSpeed.BaseValue);
     }
 
     private void OnEnable()
@@ -39,7 +49,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if (firing && timeSinceLastFired > FireDelay)
+        if (firing && timeSinceLastFired > currentFireDelay)
         {
             Fire();
             timeSinceLastFired = 0;
@@ -59,6 +69,7 @@ public class PlayerCombat : MonoBehaviour
         Vector3 spawnPoint = transform.position + transform.up * projectileSpawnGap;
         spawnPoint.z = transform.position.z;
         var projectileInstance = Instantiate(projectile, spawnPoint, transform.rotation);
+        projectileInstance.GetComponent<Projectile>().SetSpeed(currentProjectileSpeed);
         projectileInstance.GetComponent<Projectile>().Launch(playerMovement.CurrentVelocity);
     }
 
@@ -82,9 +93,11 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    public void UpdateFireDelay(float newValue) { currentFireDelay = newValue; }
+    private void UpdateProjectileSpeed(float newValue) { currentProjectileSpeed = newValue; }
     public void AdjustFireDelay(float delta)
     {
-        FireDelay = Mathf.Clamp(FireDelay + delta, minFireDelay, maxFireDelay);
+        fireDelay.AdjustValue(delta);
     }
 
     private void PlayHurt(int heatlh)
@@ -100,5 +113,7 @@ public class PlayerCombat : MonoBehaviour
     {
         controls.MK.Fire.performed -= OnFire;
         health.died -= OnDeath;
+        fireDelay.valueChanged -= UpdateFireDelay;
+        projectileSpeed.valueChanged -= UpdateProjectileSpeed;
     }
 }

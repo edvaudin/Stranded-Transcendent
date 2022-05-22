@@ -6,14 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] Stat moveSpeed;
     private PlayerInput playerInput;
     private PlayerControls controls;
 
     private Rigidbody2D rb;
 
-    [SerializeField] float moveSpeed = 10f;
-    [SerializeField] float minMoveSpeed = 4f;
-    [SerializeField] float maxMoveSpeed = 15f;
+    [SerializeField] float currentMoveSpeed;
     public Vector3 CurrentVelocity { get; private set; }
 
     InputAction move;
@@ -22,7 +21,15 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         playerInput = FindObjectOfType<PlayerInput>();
+        moveSpeed.valueChanged += UpdateMoveSpeed;
     }
+
+    private void Start()
+    {
+        moveSpeed.SetValue(moveSpeed.BaseValue);
+    }
+
+    private void UpdateMoveSpeed(float newValue) { currentMoveSpeed = newValue; }
 
     private void OnEnable()
     {
@@ -44,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         move.Disable();
         controls.MK.Restart.performed -= ReloadScene;
         controls.MK.Exit.performed -= Quit;
+        moveSpeed.valueChanged -= UpdateMoveSpeed;
     }
 
     private void FixedUpdate()
@@ -57,12 +65,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void AdjustMoveSpeed(float delta)
     {
-        moveSpeed = Mathf.Clamp(moveSpeed + delta, minMoveSpeed, maxMoveSpeed);
+        moveSpeed.AdjustValue(delta);
     }
 
     void Move(Vector2 direction)
     {
-        rb.AddForce(direction.normalized * moveSpeed);
+        rb.AddForce(direction.normalized * currentMoveSpeed);
     }
 
     void ReloadScene(InputAction.CallbackContext ctx)
