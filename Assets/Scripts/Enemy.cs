@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
     protected NavMeshAgent agent;
     protected GameObject player;
-    private Health health;
+    protected Health health;
     private Health playerHealth;
     [SerializeField] protected float chaseDistance = 10f;
     [SerializeField] protected float rotationDamping = 0.2f;

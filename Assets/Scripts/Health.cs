@@ -6,9 +6,10 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] public int baseHealth = 3;
+    [SerializeField] public float iSeconds = 1;
+    private float timeSinceDamaged = Mathf.Infinity;
 
-    [Header("Health")]
-    [SerializeField] UISlider healthBar;
+    public UISlider healthBar { get; private set; }
     public int CurrentHealth { get; private set; }
     public bool IsDead { get; private set; } = false;
     public Action died;
@@ -17,12 +18,22 @@ public class Health : MonoBehaviour
     private void Start()
     {
         CurrentHealth = baseHealth;
-        if (healthBar) { healthBar.SetMaxValue(CurrentHealth); }
+    }
+
+    private void Update()
+    {
+        timeSinceDamaged += Time.deltaTime;
+    }
+
+    public void SetSlider(UISlider slider)
+    {
+        healthBar = slider;
+        healthBar.SetMaxValue(baseHealth);
     }
 
     public void TakeDamage(int damage)
     {
-        if (IsDead) { return; }
+        if (IsDead || timeSinceDamaged < iSeconds) { return; }
         CurrentHealth -= damage;
         //Debug.Log($"{gameObject.name} just took {damage} damage!");
 
@@ -37,5 +48,6 @@ public class Health : MonoBehaviour
         }
 
         changed?.Invoke(CurrentHealth);
+        timeSinceDamaged = 0;
     }
 }

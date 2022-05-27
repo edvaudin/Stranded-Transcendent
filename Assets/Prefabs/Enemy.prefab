@@ -170,8 +170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b27ff830b24944387c22a2c429bb34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseDistance: 7
+  chaseDistance: 10
   rotationDamping: 7.5
+  meleeDamage: 1
   lootTable: {fileID: 11400000, guid: 4d33453da25cfca42b714c542ae15a06, type: 2}
 --- !u!114 &7070683237868961905
 MonoBehaviour:
@@ -186,7 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 3
-  healthBar: {fileID: 0}
+  iSeconds: 1
 --- !u!1 &7070683238499325590
 GameObject:
   m_ObjectHideFlags: 0
