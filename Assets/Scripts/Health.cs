@@ -39,7 +39,8 @@ public class Health : MonoBehaviour
 
         if (CurrentHealth <= 0) {
             died?.Invoke();
-            IsDead = true; 
+            IsDead = true;
+            if (healthBar) { Destroy(healthBar.gameObject); }
         }
 
         if (healthBar)

@@ -579,14 +579,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bosses:
-  - killCountRequired: 2
+  - killCountRequired: 1
     bossPrefab: {fileID: 1503909229196255617, guid: ac4e7199087489b4c9404263b6a952a2, type: 3}
     spawned: 0
-  - killCountRequired: 4
-    bossPrefab: {fileID: 1503909229196255617, guid: ac4e7199087489b4c9404263b6a952a2, type: 3}
+  - killCountRequired: 5
+    bossPrefab: {fileID: 1503909229196255617, guid: 4fb60be299a05a8478157dbb86e10ae9, type: 3}
     spawned: 0
-  - killCountRequired: 6
-    bossPrefab: {fileID: 1503909229196255617, guid: ac4e7199087489b4c9404263b6a952a2, type: 3}
+  - killCountRequired: 10
+    bossPrefab: {fileID: 1503909229196255617, guid: bc371f2dd788e274095d70883996288b, type: 3}
     spawned: 0
   offScreenBuffer: 5
 --- !u!1 &1394093875
@@ -130192,6 +130192,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8949007748105458856, guid: 41cb6ed64a587664382a337668f50a8f, type: 3}
+      propertyPath: baseHealth
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 8949007748105458857, guid: 41cb6ed64a587664382a337668f50a8f, type: 3}
       propertyPath: m_Name
       value: Player

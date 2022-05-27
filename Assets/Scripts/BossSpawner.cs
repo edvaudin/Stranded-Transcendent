@@ -29,6 +29,7 @@ public class BossSpawner : MonoBehaviour
             if (enemyDeathCount >= milestone.killCountRequired && !milestone.spawned)
             {
                 Spawn(milestone.bossPrefab);
+                milestone.spawned = true;
             }
         }
         enemyDeathCount++;

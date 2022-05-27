@@ -9,15 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7070683236792789967, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7070683236792789967, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.5117957
       objectReference: {fileID: 0}
     - target: {fileID: 7070683236792789967, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070683237294469116, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
+      propertyPath: m_Speed
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469117, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: chaseDistance
@@ -81,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469119, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Name
-      value: Boss
+      value: Boss 3
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237868961905, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: healthBar
@@ -89,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 5355275160775100299, guid: b40902acc1fc7e845b4403faf38a2ba2, type: 3}
     - target: {fileID: 7070683237868961905, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: baseHealth
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7070683238499325588, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Color.b
@@ -130,7 +134,7 @@ MonoBehaviour:
   projectile: {fileID: -706952548970084690, guid: 096a0eebd0003244183a110c22d3c8d2, type: 3}
   fireRate: 1
   projectileSpawnGap: 2
-  projectileSpeed: 10
+  projectileSpeed: 30
   healthBar: {fileID: 8765037944266809546, guid: b40902acc1fc7e845b4403faf38a2ba2, type: 3}
   hudRect: {fileID: 0}
-  bossName: Steve
+  bossName: Alfredo
