@@ -131199,12 +131199,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5219083336990402286, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
       propertyPath: enemies.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5219083336990402286, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
+      propertyPath: enemies.Array.data[0]
+      value: 
+      objectReference: {fileID: 5440761651139060209, guid: d27d6744056eb144b8f1d93f8a980fec, type: 3}
     - target: {fileID: 5219083336990402286, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
       propertyPath: enemies.Array.data[1]
       value: 
-      objectReference: {fileID: 4167593823289240101, guid: 8de37b422df08e447b1136afeb15cf71, type: 3}
+      objectReference: {fileID: 5440761651139060209, guid: d27d6744056eb144b8f1d93f8a980fec, type: 3}
+    - target: {fileID: 5219083336990402286, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
+      propertyPath: enemies.Array.data[2]
+      value: 
+      objectReference: {fileID: 5440761651139060209, guid: d27d6744056eb144b8f1d93f8a980fec, type: 3}
     - target: {fileID: 5219083336990402287, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
       propertyPath: m_Name
       value: Enemy Spawner

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Ranger : Enemy
 {
-    [SerializeField] Projectile projectile;
-    [SerializeField] float fireRate = 1f;
-    [SerializeField] float projectileSpawnGap = 2f;
-    [SerializeField] float projectileSpeed = 20f;
+    [SerializeField] protected Projectile projectile;
+    [SerializeField] protected float fireRate = 1f;
+    [SerializeField] protected float projectileSpawnGap = 2f;
+    [SerializeField] protected float projectileSpeed = 20f;
     private float timeSinceFired = Mathf.Infinity;
     protected override void Chase()
     {
