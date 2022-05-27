@@ -15,6 +15,6 @@ public class Spiker : Ranger
             var projectileInstance = Instantiate(projectile, spawnPoint, angle * Quaternion.Euler(0, 0, i * 20));
             projectileInstance.GetComponent<Projectile>().Launch(agent.velocity, projectileSpeed);
         }
-        
+        timeSinceFired = 0;
     }
 }

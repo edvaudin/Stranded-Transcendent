@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class Enemy : MonoBehaviour
     protected GameObject player;
     protected Health health;
     private Health playerHealth;
+    public static Action died;
     [SerializeField] protected float chaseDistance = 10f;
     [SerializeField] protected float rotationDamping = 0.2f;
     [SerializeField] protected int meleeDamage = 1;
@@ -16,7 +18,7 @@ public class Enemy : MonoBehaviour
 
     protected float timeSinceLastSawPlayer = Mathf.Infinity;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
@@ -82,7 +84,7 @@ public class Enemy : MonoBehaviour
         {
             Instantiate(lootTable.GetRandomPickup(), transform.position, Quaternion.identity);
         }
-        
+        died?.Invoke();
         Destroy(gameObject);
     }
 

@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce7d9b59120e72048ad7e8ba03e3765b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMoveSpeed: 0
+  currentMoveSpeed: 20
 --- !u!114 &8949007748105458858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,9 +76,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a28b77b85284a49b23796cd9c57e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  psmPrefab: {fileID: 0}
   projectile: {fileID: 1640090358565794721, guid: 980d042edbf008644ae61ec5a1abdd71, type: 3}
-  currentFireDelay: 0
+  currentFireDelay: 0.5
   currentProjectileSpeed: 20
+  currentProjectileRange: 1.5
   projectileSpawnGap: 1
   hurt: {fileID: 8300000, guid: e161b78faf904654caeb435cbbd318f3, type: 3}
 --- !u!50 &8949007748105458859
@@ -115,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseHealth: 3
-  healthBar: {fileID: 0}
+  iSeconds: 1
 --- !u!58 &1598421077
 CircleCollider2D:
   m_ObjectHideFlags: 0

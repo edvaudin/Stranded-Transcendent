@@ -8,14 +8,14 @@ public class Ranger : Enemy
     [SerializeField] protected float fireRate = 1f;
     [SerializeField] protected float projectileSpawnGap = 2f;
     [SerializeField] protected float projectileSpeed = 20f;
-    private float timeSinceFired = Mathf.Infinity;
+    protected float timeSinceFired = Mathf.Infinity;
     protected override void Chase()
     {
         base.Chase();
         if (timeSinceFired > fireRate)
         {
             Fire();
-            timeSinceFired = 0;
+            
         }
     }
 
@@ -32,5 +32,6 @@ public class Ranger : Enemy
         spawnPoint.z = transform.position.z;
         var projectileInstance = Instantiate(projectile, spawnPoint, transform.rotation);
         projectileInstance.GetComponent<Projectile>().Launch(agent.velocity, projectileSpeed);
+        timeSinceFired = 0;
     }
 }

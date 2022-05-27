@@ -41,11 +41,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469118, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -4.77
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469118, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.28
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469118, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -103,5 +103,34 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.41509432
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7070683237294469117, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
+--- !u!1 &1503909229196255617 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7070683237294469119, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
+  m_PrefabInstance: {fileID: 8574547514686066302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1246490062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503909229196255617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e164a8867a3cec46ba1eaf7ef3ac1b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chaseDistance: 50
+  rotationDamping: 7.5
+  meleeDamage: 1
+  lootTable: {fileID: 11400000, guid: 4d33453da25cfca42b714c542ae15a06, type: 2}
+  projectile: {fileID: -706952548970084690, guid: 096a0eebd0003244183a110c22d3c8d2, type: 3}
+  fireRate: 1
+  projectileSpawnGap: 2
+  projectileSpeed: 20
+  healthBar: {fileID: 8765037944266809546, guid: b40902acc1fc7e845b4403faf38a2ba2, type: 3}
+  hudRect: {fileID: 0}
+  bossName: Steve
