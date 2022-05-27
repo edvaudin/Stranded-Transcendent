@@ -10,10 +10,10 @@ public class PlayerStatManager : MonoBehaviour
     public Stat fireDelay;
     public Stat moveSpeed;
     public Stat projectileSpeed;
+    public Stat projectileRange;
 
     private void Awake()
     {
-        // If no Player ever existed, we are it.
         if (instance == null)
         {
             instance = this;
@@ -21,11 +21,18 @@ public class PlayerStatManager : MonoBehaviour
             fireDelay.SetValueToBase();
             moveSpeed.SetValueToBase();
             projectileSpeed.SetValueToBase();
+            projectileRange.SetValueToBase();
         }
         else if (instance != this)
         {
+            Debug.Log($"Destroying duplicate psm. Player Move Speed {moveSpeed.Value}");
+            
             Destroy(gameObject);
             return;
+        }
+        else
+        {
+            Debug.Log($"Using the psm from last scene. Player Move Speed {moveSpeed.Value}");
         }
     }
 

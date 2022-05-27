@@ -35,8 +35,9 @@ public class Projectile : MonoBehaviour
         speed = newSpeed;
     }
 
-    public virtual void Launch(Vector3 velocity)
+    public virtual void Launch(Vector3 velocity, float range)
     {
+        rangeInSeconds = range;
         Vector3 adjustment = velocity.magnitude > 1f ? velocity.normalized : Vector3.zero;
         rb.AddForce((transform.up * speed) + adjustment, ForceMode2D.Impulse);
 

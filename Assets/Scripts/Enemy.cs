@@ -6,14 +6,15 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     protected NavMeshAgent agent;
-    private GameObject player;
+    protected GameObject player;
     private Health health;
     private Health playerHealth;
     [SerializeField] protected float chaseDistance = 10f;
     [SerializeField] protected float rotationDamping = 0.2f;
+    [SerializeField] protected int meleeDamage = 1;
     [SerializeField] LootTable lootTable;
 
-    private float timeSinceLastSawPlayer = Mathf.Infinity;
+    protected float timeSinceLastSawPlayer = Mathf.Infinity;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class Enemy : MonoBehaviour
         ApplyManualRotation();
     }
 
-    private void ApplyManualRotation()
+    protected void ApplyManualRotation()
     {
         var lookPos = player.transform.position - transform.position;
         var angle = Mathf.Atan2(lookPos.y, lookPos.x);
@@ -93,6 +94,14 @@ public class Enemy : MonoBehaviour
     private void OnDisable()
     {
         health.died -= OnDeath;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            collision.gameObject.GetComponent<Health>().TakeDamage(meleeDamage);
+        }
     }
     private void OnDrawGizmos()
     {

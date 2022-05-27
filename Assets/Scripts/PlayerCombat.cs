@@ -7,9 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [SerializeField] GameObject psmPrefab;
     [SerializeField] GameObject projectile;
     [SerializeField] float currentFireDelay;
     [SerializeField] float currentProjectileSpeed = 20f;
+    [SerializeField] float currentProjectileRange = 1.5f;
     private float timeSinceLastFired = Mathf.Infinity;
     [SerializeField] float projectileSpawnGap = 2f;
     [SerializeField] AudioClip hurt;
@@ -28,14 +30,17 @@ public class PlayerCombat : MonoBehaviour
         health = GetComponent<Health>();
         audioSource = GetComponent<AudioSource>();
         psm = FindObjectOfType<PlayerStatManager>();
+        if (psm == null) { psm = Instantiate(psmPrefab).GetComponent<PlayerStatManager>(); }
         psm.fireDelay.valueChanged += UpdateFireDelay;
         psm.projectileSpeed.valueChanged += UpdateProjectileSpeed;
+        psm.projectileRange.valueChanged += UpdateProjectileRange;
     }
 
     private void Start()
     {
         currentFireDelay = psm.fireDelay.Value;
         currentProjectileSpeed = psm.projectileSpeed.Value;
+        currentProjectileRange = psm.projectileRange.Value;
     }
 
     private void OnEnable()
@@ -70,7 +75,7 @@ public class PlayerCombat : MonoBehaviour
         spawnPoint.z = transform.position.z;
         var projectileInstance = Instantiate(projectile, spawnPoint, transform.rotation);
         projectileInstance.GetComponent<Projectile>().SetSpeed(currentProjectileSpeed);
-        projectileInstance.GetComponent<Projectile>().Launch(playerMovement.CurrentVelocity);
+        projectileInstance.GetComponent<Projectile>().Launch(playerMovement.CurrentVelocity, currentProjectileRange);
     }
 
     private void RotatePlayer(Vector2 fireDirection)
@@ -95,9 +100,15 @@ public class PlayerCombat : MonoBehaviour
 
     public void UpdateFireDelay(float newValue) { currentFireDelay = newValue; }
     private void UpdateProjectileSpeed(float newValue) { currentProjectileSpeed = newValue; }
+    private void UpdateProjectileRange(float newValue) { currentProjectileRange = newValue; }
     public void AdjustFireDelay(float delta)
     {
         psm.fireDelay.AdjustValue(delta);
+    }
+
+    public void AdjustProjectileRange(float delta)
+    {
+        psm.projectileRange.AdjustValue(delta);
     }
 
     private void PlayHurt(int heatlh)
@@ -106,7 +117,15 @@ public class PlayerCombat : MonoBehaviour
     }
     private void OnDeath()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        if (SceneManager.GetActiveScene().name.Contains("Underworld"))
+        {
+            SceneManager.LoadScene("Overworld 1");
+        }
+        else
+        {
+            SceneManager.LoadScene("Underworld 1");
+        }
+        
     }
 
     private void OnDisable()
@@ -115,5 +134,6 @@ public class PlayerCombat : MonoBehaviour
         health.died -= OnDeath;
         psm.fireDelay.valueChanged -= UpdateFireDelay;
         psm.projectileSpeed.valueChanged -= UpdateProjectileSpeed;
+        psm.projectileRange.valueChanged -= UpdateProjectileRange;
     }
 }

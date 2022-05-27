@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentMoveSpeed = psm.moveSpeed.Value;
+        Debug.Log($"{currentMoveSpeed} set to {psm.moveSpeed.Value}");
     }
 
     private void UpdateMoveSpeed(float newValue) { currentMoveSpeed = newValue; }
