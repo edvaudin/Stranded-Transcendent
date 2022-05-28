@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Underworld 1.unity
     guid: ab409f7be2c45c146b0becc069ef7f2e
+  - enabled: 1
+    path: Assets/Scenes/Tomb.unity
+    guid: ff04bc1063d457b46b2350a1e60208cd
   m_configObjects: {}

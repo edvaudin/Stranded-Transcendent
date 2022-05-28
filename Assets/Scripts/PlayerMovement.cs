@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using VaudinGames.Audio;
 
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerStatManager psm;
     private PlayerInput playerInput;
     private PlayerControls controls;
+    private RandomAudioPlayer rap;
 
     private Rigidbody2D rb;
 
     [SerializeField] float currentMoveSpeed;
+    [SerializeField] float footstepRate = 0.4f;
+    private float timeSinceLastFootstep = Mathf.Infinity;
     public Vector3 CurrentVelocity { get; private set; }
 
     InputAction move;
@@ -22,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerInput = FindObjectOfType<PlayerInput>();
         psm = FindObjectOfType<PlayerStatManager>();
+        rap = GetComponent<RandomAudioPlayer>();
         psm.moveSpeed.valueChanged += UpdateMoveSpeed;
     }
 
@@ -60,6 +65,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (move.ReadValue<Vector2>().magnitude > Mathf.Epsilon)
         {
+            timeSinceLastFootstep += Time.deltaTime;
+            if (timeSinceLastFootstep > footstepRate)
+            {
+                timeSinceLastFootstep = 0;
+                rap.Play("footsteps");
+            }
             Move(move.ReadValue<Vector2>());
         }
         CurrentVelocity = rb.velocity;

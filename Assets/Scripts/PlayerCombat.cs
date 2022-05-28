@@ -15,6 +15,10 @@ public class PlayerCombat : MonoBehaviour
     private float timeSinceLastFired = Mathf.Infinity;
     [SerializeField] float projectileSpawnGap = 2f;
     [SerializeField] AudioClip hurt;
+    [SerializeField] SpriteRenderer sr;
+    [SerializeField] Sprite upSprite;
+    [SerializeField] Sprite downSprite;
+    [SerializeField] Sprite leftSprite;
     private PlayerInput playerInput;
     private PlayerControls controls;
     private PlayerMovement playerMovement;
@@ -86,21 +90,29 @@ public class PlayerCombat : MonoBehaviour
         {
             currentFireDirection =  Quaternion.Euler(0, 0, -90);
             currentFireSpawnPoint = transform.right;
+            sr.sprite = leftSprite;
+            sr.flipX = true;
         }
         else if (fireDirection.x < 0)
         {
             currentFireDirection = Quaternion.Euler(0, 0, 90);
             currentFireSpawnPoint = -transform.right;
+            sr.sprite = leftSprite;
+            sr.flipX = false;
         }
         else if (fireDirection.y > 0)
         {
             currentFireDirection = Quaternion.Euler(0, 0, 0);
             currentFireSpawnPoint = transform.up;
+            sr.sprite = upSprite;
+            sr.flipX = false;
         }
         else if (fireDirection.y < 0)
         {
             currentFireDirection = Quaternion.Euler(0, 0, 180);
             currentFireSpawnPoint = -transform.up;
+            sr.sprite = downSprite;
+            sr.flipX = false;
         }
     }
 
