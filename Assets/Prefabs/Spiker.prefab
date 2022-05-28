@@ -67,6 +67,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 122213686987532097, guid: 2f95196f2e939cf42b539b21b33ff858, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 122213686987532097, guid: 2f95196f2e939cf42b539b21b33ff858, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 122213686987532097, guid: 2f95196f2e939cf42b539b21b33ff858, type: 3}
+      propertyPath: m_Color.r
+      value: 0.9522128
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 938236169, guid: 2f95196f2e939cf42b539b21b33ff858, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2f95196f2e939cf42b539b21b33ff858, type: 3}
@@ -87,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b9b3442319d7a42a35bb82005c1f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseDistance: 10
+  chaseDistance: 20
   rotationDamping: 7.5
   meleeDamage: 1
   lootTable: {fileID: 11400000, guid: 4d33453da25cfca42b714c542ae15a06, type: 2}

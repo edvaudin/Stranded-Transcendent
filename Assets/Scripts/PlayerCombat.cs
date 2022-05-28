@@ -22,6 +22,8 @@ public class PlayerCombat : MonoBehaviour
     private AudioSource audioSource;
     private bool firing = false;
     private PlayerStatManager psm;
+    private Quaternion currentFireDirection;
+    private Vector3 currentFireSpawnPoint;
 
     private void Awake()
     {
@@ -71,9 +73,9 @@ public class PlayerCombat : MonoBehaviour
     private void Fire()
     {
         if (!gameObject.scene.IsValid()) { return; }
-        Vector3 spawnPoint = transform.position + transform.up * projectileSpawnGap;
+        Vector3 spawnPoint = transform.position + currentFireSpawnPoint * projectileSpawnGap;
         spawnPoint.z = transform.position.z;
-        var projectileInstance = Instantiate(projectile, spawnPoint, transform.rotation);
+        var projectileInstance = Instantiate(projectile, spawnPoint, transform.rotation * currentFireDirection);
         projectileInstance.GetComponent<Projectile>().SetSpeed(currentProjectileSpeed);
         projectileInstance.GetComponent<Projectile>().Launch(playerMovement.CurrentVelocity, currentProjectileRange);
     }
@@ -82,19 +84,23 @@ public class PlayerCombat : MonoBehaviour
     {
         if (fireDirection.x > 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, -90);
+            currentFireDirection =  Quaternion.Euler(0, 0, -90);
+            currentFireSpawnPoint = transform.right;
         }
         else if (fireDirection.x < 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 90);
+            currentFireDirection = Quaternion.Euler(0, 0, 90);
+            currentFireSpawnPoint = -transform.right;
         }
         else if (fireDirection.y > 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            currentFireDirection = Quaternion.Euler(0, 0, 0);
+            currentFireSpawnPoint = transform.up;
         }
         else if (fireDirection.y < 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 180);
+            currentFireDirection = Quaternion.Euler(0, 0, 180);
+            currentFireSpawnPoint = -transform.up;
         }
     }
 
