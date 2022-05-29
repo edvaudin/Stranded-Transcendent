@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darkness: {fileID: 0}
   deathScreen: {fileID: 0}
+  deathButton: {fileID: 0}
   fadeInTime: 2
   levelTransitionTime: 2
   deathFadeTime: 1

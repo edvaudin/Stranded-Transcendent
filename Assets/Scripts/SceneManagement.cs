@@ -10,6 +10,7 @@ public class SceneManagement : MonoBehaviour
 {
     [SerializeField] CanvasGroupFader darkness;
     [SerializeField] CanvasGroupFader deathScreen;
+    [SerializeField] CanvasGroupFader deathButton;
     [SerializeField] float fadeInTime = 2f;
     [SerializeField] float levelTransitionTime = 2f;
     [SerializeField] float deathFadeTime = 1f;
@@ -23,6 +24,7 @@ public class SceneManagement : MonoBehaviour
         darkness.gameObject.GetComponent<CanvasGroup>().alpha = 1;
         darkness.FadeOut(fadeInTime);
         deathScreen.gameObject.GetComponent<CanvasGroup>().alpha = 0;
+        deathButton.gameObject.GetComponent<CanvasGroup>().alpha = 0;   
         PlayerCombat.playerDied += OnPlayerDeath;
         sceneButton.interactable = false;
     }
@@ -50,6 +52,7 @@ public class SceneManagement : MonoBehaviour
     private IEnumerator PlayerDeath()
     {
         Coroutine showDeathCanvas = deathScreen.FadeIn(4f);
+        
         Coroutine playDeathMusic = StartCoroutine(musicPlayer.PlayMusic(deathMusic));
         Coroutine waitForDeathMusic = StartCoroutine(musicPlayer.WaitForMusicToFinish(deathMusic.length));
 
@@ -58,6 +61,7 @@ public class SceneManagement : MonoBehaviour
         Cursor.visible = true;
         sceneButton.interactable = true;
         yield return playDeathMusic;
+        Coroutine showDeathButton = deathButton.FadeIn(2f);
         yield return waitForDeathMusic;
 
     }
