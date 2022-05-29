@@ -52,3 +52,5 @@ MonoBehaviour:
     baseStat: {fileID: 11400000, guid: a4e8c62c3465a584f9bccc38da94838c, type: 2}
   projectileRange:
     baseStat: {fileID: 11400000, guid: eddb2880f15ab424e87ab99aeda6f4b4, type: 2}
+  health:
+    baseStat: {fileID: 11400000, guid: b64f5a495f5ddc84ba5c062020fd8ec3, type: 2}

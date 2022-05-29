@@ -9,34 +9,32 @@ public class HeartManager : MonoBehaviour
     [SerializeField] Sprite emptyHeart;
     [SerializeField] List<Image> hearts;
     [SerializeField] Health health;
+    [SerializeField] GameObject heart;
 
     private void OnEnable()
     {
         health.changed += UpdateHearts;
+        health.baseHealthChanged += UpdateBaseHearts;
     }
 
+    private void UpdateBaseHearts()
+    {
+        foreach (Image heart in hearts)
+        {
+            Destroy(heart.gameObject);
+        }
+        hearts.Clear();
+        for (int i = 0; i < health.BaseHealth; i++)
+        {
+            var heartInstance = Instantiate(heart, transform);
+            hearts.Add(heartInstance.GetComponent<Image>());
+        }
+    }
     private void UpdateHearts(int currentHealth)
     {
-        int fullHearts = 3;
-        switch (currentHealth)
-        {
-            case 3:
-                fullHearts = 3;
-                break;
-            case 2:
-                fullHearts = 2;
-                break;
-            case 1:
-                fullHearts = 1;
-                break;
-            default:
-                fullHearts = 0;
-                break;
-        }
-
         for (int i = 0; i < hearts.Count; i++)
         {
-            if (i < fullHearts) { hearts[i].sprite = fullHeart; }
+            if (i < currentHealth) { hearts[i].sprite = fullHeart; }
             else { hearts[i].sprite = emptyHeart; }
         }
     }
@@ -44,5 +42,6 @@ public class HeartManager : MonoBehaviour
     private void OnDisable()
     {
         health.changed -= UpdateHearts;
+        health.baseHealthChanged -= UpdateBaseHearts;
     }
 }

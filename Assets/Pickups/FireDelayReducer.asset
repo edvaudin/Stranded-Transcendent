@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d027e4e09bd4504a8b740f7188b3b4a, type: 3}
   m_Name: FireDelayReducer
   m_EditorClassIdentifier: 
-  displayName: Cocaine
-  description: Reduces fire delay.
-  icon: {fileID: 21300000, guid: 067c8a4efb4da714486acc41a2115ec5, type: 3}
+  displayName: Mystical White Powder
+  description: I feel quick on the draw!
+  icon: {fileID: 21300000, guid: b53966c3841e0724999b730c7849c182, type: 3}

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] public int baseHealth = 3;
+    [field: SerializeField] public int BaseHealth { get; private set; } = 3;
     [SerializeField] public float iSeconds = 1;
     private float timeSinceDamaged = Mathf.Infinity;
 
@@ -14,10 +14,11 @@ public class Health : MonoBehaviour
     public bool IsDead { get; private set; } = false;
     public Action died;
     public Action<int> changed;
+    public Action baseHealthChanged;
 
     private void Start()
     {
-        CurrentHealth = baseHealth;
+        CurrentHealth = BaseHealth;
     }
 
     private void Update()
@@ -28,9 +29,24 @@ public class Health : MonoBehaviour
     public void SetSlider(UISlider slider)
     {
         healthBar = slider;
-        healthBar.SetMaxValue(baseHealth);
+        healthBar.SetMaxValue(BaseHealth);
+    }
+    public void SetBaseHealth(int value)
+    {
+        if (IsDead) { return; }
+        BaseHealth = value;
+        if (healthBar) { healthBar.SetMaxValue(BaseHealth); }
+        baseHealthChanged?.Invoke();
+        
     }
 
+    public void GainHealth(int value)
+    {
+        if (IsDead) { return; }
+        CurrentHealth += value;
+        if (healthBar) { healthBar.SetValue(CurrentHealth); }
+        changed?.Invoke(CurrentHealth);
+    }
     public void TakeDamage(int damage)
     {
         if (IsDead || timeSinceDamaged < iSeconds) { return; }

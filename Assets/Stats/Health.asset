@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d027e4e09bd4504a8b740f7188b3b4a, type: 3}
-  m_Name: ProjectileRangeIncreaser
+  m_Script: {fileID: 11500000, guid: 1bbe6bf0516f5b742b5749551a9b16db, type: 3}
+  m_Name: Health
   m_EditorClassIdentifier: 
-  displayName: Amulet of Ba
-  description: Shoot for the horizon!
-  icon: {fileID: 21300000, guid: 0be08784876324c48b6f960aca3d4d8a, type: 3}
+  <BaseValue>k__BackingField: 3
+  <MinValue>k__BackingField: 0
+  <MaxValue>k__BackingField: 10

@@ -11,6 +11,7 @@ public class PlayerStatManager : MonoBehaviour
     public Stat moveSpeed;
     public Stat projectileSpeed;
     public Stat projectileRange;
+    public Stat health;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class PlayerStatManager : MonoBehaviour
             moveSpeed.SetValueToBase();
             projectileSpeed.SetValueToBase();
             projectileRange.SetValueToBase();
+            health.SetValueToBase();
         }
         else if (instance != this)
         {

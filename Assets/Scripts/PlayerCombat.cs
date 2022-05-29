@@ -29,6 +29,7 @@ public class PlayerCombat : MonoBehaviour
     private Quaternion currentFireDirection;
     private Vector3 currentFireSpawnPoint;
     public static Action playerDied;
+    private int currentBaseHealth;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class PlayerCombat : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         psm = FindObjectOfType<PlayerStatManager>();
         if (psm == null) { psm = Instantiate(psmPrefab).GetComponent<PlayerStatManager>(); }
+        psm.health.valueChanged += UpdateHealth;
         psm.fireDelay.valueChanged += UpdateFireDelay;
         psm.projectileSpeed.valueChanged += UpdateProjectileSpeed;
         psm.projectileRange.valueChanged += UpdateProjectileRange;
@@ -48,6 +50,8 @@ public class PlayerCombat : MonoBehaviour
         currentFireDelay = psm.fireDelay.Value;
         currentProjectileSpeed = psm.projectileSpeed.Value;
         currentProjectileRange = psm.projectileRange.Value;
+        currentBaseHealth = (int)psm.health.Value;
+        health.SetBaseHealth(currentBaseHealth);
     }
 
     private void OnEnable()
@@ -117,9 +121,20 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    public void UpdateHealth(float newValue) 
+    { 
+        currentBaseHealth = (int)newValue;
+        health.SetBaseHealth(currentBaseHealth);
+        health.GainHealth(currentBaseHealth - health.CurrentHealth);
+    }
     public void UpdateFireDelay(float newValue) { currentFireDelay = newValue; }
     private void UpdateProjectileSpeed(float newValue) { currentProjectileSpeed = newValue; }
     private void UpdateProjectileRange(float newValue) { currentProjectileRange = newValue; }
+
+    public void AdjustBaseHealth(int delta)
+    {
+        psm.health.AdjustValue(delta);
+    }
     public void AdjustFireDelay(float delta)
     {
         psm.fireDelay.AdjustValue(delta);
