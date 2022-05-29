@@ -86,9 +86,9 @@ MonoBehaviour:
   projectileSpawnGap: 1
   hurt: {fileID: 8300000, guid: e161b78faf904654caeb435cbbd318f3, type: 3}
   sr: {fileID: 8949007748496366791}
-  upSprite: {fileID: 21300000, guid: 47832688b6e335d44bc28ed8c1bed436, type: 3}
-  downSprite: {fileID: 21300000, guid: 88c9a7e0910a82647bfadc570d9a3d92, type: 3}
-  leftSprite: {fileID: 21300000, guid: e125c6cc0bbe8af40a415bc0fab99049, type: 3}
+  upSprite: {fileID: 21300000, guid: 3a946b06b71e9c24984b0f1d5414b30e, type: 3}
+  downSprite: {fileID: 21300000, guid: 812c00622665396438df95513f9c2d73, type: 3}
+  leftSprite: {fileID: 21300000, guid: 3f11e4c371e51b345a7f2832a0606023, type: 3}
 --- !u!50 &8949007748105458859
 Rigidbody2D:
   serializedVersion: 4
@@ -345,7 +345,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 88c9a7e0910a82647bfadc570d9a3d92, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 812c00622665396438df95513f9c2d73, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

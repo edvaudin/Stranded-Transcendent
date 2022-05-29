@@ -28,6 +28,7 @@ public class PlayerCombat : MonoBehaviour
     private PlayerStatManager psm;
     private Quaternion currentFireDirection;
     private Vector3 currentFireSpawnPoint;
+    public static Action playerDied;
 
     private void Awake()
     {
@@ -135,14 +136,8 @@ public class PlayerCombat : MonoBehaviour
     }
     private void OnDeath()
     {
-        if (SceneManager.GetActiveScene().name.Contains("Underworld"))
-        {
-            SceneManager.LoadScene("Overworld 1");
-        }
-        else
-        {
-            SceneManager.LoadScene("Underworld 1");
-        }
+        playerDied?.Invoke();
+
         
     }
 

@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float footstepRate = 0.4f;
     private float timeSinceLastFootstep = Mathf.Infinity;
     public Vector3 CurrentVelocity { get; private set; }
+    private bool playerDead = false;
 
     InputAction move;
 
@@ -28,8 +29,13 @@ public class PlayerMovement : MonoBehaviour
         psm = FindObjectOfType<PlayerStatManager>();
         rap = GetComponent<RandomAudioPlayer>();
         psm.moveSpeed.valueChanged += UpdateMoveSpeed;
+        PlayerCombat.playerDied += OnPlayerDeath;
     }
 
+    private void OnPlayerDeath()
+    {
+        playerDead = true;
+    }
     private void Start()
     {
         currentMoveSpeed = psm.moveSpeed.Value;
@@ -45,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
             playerInput.InitializeControls();
         }
         controls = playerInput.PlayerController;
-        controls.MK.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        //controls.MK.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
         move = controls.MK.Move;
         move.Enable();
 
@@ -63,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (playerDead) { return; }
         if (move.ReadValue<Vector2>().magnitude > Mathf.Epsilon)
         {
             timeSinceLastFootstep += Time.deltaTime;

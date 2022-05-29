@@ -41644,6 +41644,18 @@ PrefabInstance:
       propertyPath: cgf
       value: 
       objectReference: {fileID: 2110562825}
+    - target: {fileID: 3384939603881485363, guid: aceaf0afed4e0bf4d8212236d241212a, type: 3}
+      propertyPath: darkness
+      value: 
+      objectReference: {fileID: 2110562825}
+    - target: {fileID: 3384939603881485363, guid: aceaf0afed4e0bf4d8212236d241212a, type: 3}
+      propertyPath: deathScreen
+      value: 
+      objectReference: {fileID: 3649195748942922566}
+    - target: {fileID: 3384939603881485363, guid: aceaf0afed4e0bf4d8212236d241212a, type: 3}
+      propertyPath: sceneButton
+      value: 
+      objectReference: {fileID: 3649195748942922567}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aceaf0afed4e0bf4d8212236d241212a, type: 3}
 --- !u!1001 &3649195748942922565
@@ -41795,6 +41807,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29221826dc6b51446a822cc402909f62, type: 3}
+--- !u!114 &3649195748942922566 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3649195748942922567, guid: 29221826dc6b51446a822cc402909f62, type: 3}
+  m_PrefabInstance: {fileID: 3649195748942922565}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c8dcf44fefee924888a5bdb70c4f3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3649195748942922567 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2478282727915384061, guid: 29221826dc6b51446a822cc402909f62, type: 3}
+  m_PrefabInstance: {fileID: 3649195748942922565}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3654537324979233638
 MonoBehaviour:
   m_ObjectHideFlags: 0

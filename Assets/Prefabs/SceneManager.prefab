@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31a6d5703f0ed84099b8f565e3459c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cgf: {fileID: 0}
+  darkness: {fileID: 0}
+  deathScreen: {fileID: 0}
   fadeInTime: 2
   levelTransitionTime: 2
   deathFadeTime: 1
+  deathMusic: {fileID: 8300000, guid: 5ff831f205818384493131583d20085a, type: 3}
+  sceneButton: {fileID: 0}
