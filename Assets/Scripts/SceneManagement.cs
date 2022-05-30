@@ -16,11 +16,15 @@ public class SceneManagement : MonoBehaviour
     [SerializeField] float deathFadeTime = 1f;
     [SerializeField] AudioClip deathMusic;
     [SerializeField] Button sceneButton;
-    private MusicPlayer musicPlayer;
+    protected MusicPlayer musicPlayer;
+    [SerializeField] AudioClip sceneMusic;
 
-    private void Start()
+    protected virtual void Start()
     {
         musicPlayer = FindObjectOfType<MusicPlayer>();
+        if (sceneMusic) {
+            StartCoroutine(musicPlayer.PlayMusic());
+        }
         darkness.gameObject.GetComponent<CanvasGroup>().alpha = 1;
         darkness.FadeOut(fadeInTime);
         deathScreen.gameObject.GetComponent<CanvasGroup>().alpha = 0;
@@ -38,6 +42,7 @@ public class SceneManagement : MonoBehaviour
     public IEnumerator LoadNextLevel(string sceneName)
     {
         darkness.FadeIn(levelTransitionTime);
+        musicPlayer.StopMusic();
         yield return new WaitForSeconds(levelTransitionTime);
         SceneManager.LoadScene(sceneName);
         Cursor.lockState = CursorLockMode.Locked;
@@ -53,7 +58,7 @@ public class SceneManagement : MonoBehaviour
     {
         Coroutine showDeathCanvas = deathScreen.FadeIn(4f);
         
-        Coroutine playDeathMusic = StartCoroutine(musicPlayer.PlayMusic(deathMusic));
+        Coroutine playDeathMusic = StartCoroutine(musicPlayer.PlayOneShotMusic(deathMusic, 3f));
         Coroutine waitForDeathMusic = StartCoroutine(musicPlayer.WaitForMusicToFinish(deathMusic.length));
 
         yield return showDeathCanvas;
@@ -70,7 +75,8 @@ public class SceneManagement : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name.Contains("Underworld"))
         {
-            StartCoroutine(LoadNextLevel("Overworld 1"));
+            Destroy(FindObjectOfType<PlayerStatManager>().gameObject);
+            StartCoroutine(LoadNextLevel("Menu"));
         }
         else
         {
@@ -78,7 +84,20 @@ public class SceneManagement : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    protected void HideCanvasGroup(CanvasGroup canvasGroup)
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+    }
+
+    protected void EnableCanvasGroup(CanvasGroup canvasGroup)
+    {
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+    }
+
+    protected virtual void OnDisable()
     {
         PlayerCombat.playerDied -= OnPlayerDeath;
     }

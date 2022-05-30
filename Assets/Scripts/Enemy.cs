@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] LootTable lootTable;
 
     protected float timeSinceLastSawPlayer = Mathf.Infinity;
+    private bool shouldAttack = true;
 
     protected virtual void Awake()
     {
@@ -27,12 +28,14 @@ public class Enemy : MonoBehaviour
         health.died += OnDeath;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
+        BossSpawner.allBossesKilled += () => shouldAttack = false;
         SampleAreaIfNotOnNavMesh();
     }
 
     protected virtual void Update()
     {
-        if (InAttackRangeOfPlayer() && !playerHealth.IsDead)
+        if (playerHealth.IsDead) { shouldAttack = false; }
+        if (InAttackRangeOfPlayer() && shouldAttack)
         {
             Chase();
         }
@@ -96,6 +99,7 @@ public class Enemy : MonoBehaviour
     private void OnDisable()
     {
         health.died -= OnDeath;
+        BossSpawner.allBossesKilled -= () => shouldAttack = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

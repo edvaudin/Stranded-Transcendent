@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469116, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Speed
-      value: 7.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469117, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: chaseDistance
@@ -33,11 +33,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469118, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469118, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7070683237294469118, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_LocalScale.z
@@ -95,17 +95,25 @@ PrefabInstance:
       propertyPath: baseHealth
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 7070683237868961905, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
+      propertyPath: <BaseHealth>k__BackingField
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070683238499325588, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d9360bbbcdc75964ba97fad6405fa94b, type: 3}
     - target: {fileID: 7070683238499325588, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7070683238499325588, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7070683238499325588, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7070683237294469117, guid: 97fb48f69df493f4bbd7a8c73ee9df8f, type: 3}
@@ -129,8 +137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseDistance: 50
   rotationDamping: 7.5
-  meleeDamage: 1
-  lootTable: {fileID: 11400000, guid: 4d33453da25cfca42b714c542ae15a06, type: 2}
+  meleeDamage: 2
+  lootTable: {fileID: 11400000, guid: 847891c158211dc4a990e33123a7b91a, type: 2}
   projectile: {fileID: -706952548970084690, guid: 096a0eebd0003244183a110c22d3c8d2, type: 3}
   fireRate: 1
   projectileSpawnGap: 2

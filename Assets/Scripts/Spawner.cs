@@ -10,15 +10,18 @@ public class Spawner : MonoBehaviour
     [SerializeField] float offScreenBuffer = 5f;
     private float timeSinceLastSpawn = Mathf.Infinity;
     Camera cam;
+    bool bossAlive = false;
 
     private void Awake()
     {
+        Boss.bossSpawned += () => bossAlive = true;
+        Boss.bossDied += () => bossAlive = false;
         cam = Camera.main;
     }
 
     private void Update()
     {
-        if (timeSinceLastSpawn > spawnRate)
+        if (timeSinceLastSpawn > spawnRate && !bossAlive)
         {
             Spawn();
             timeSinceLastSpawn = 0;
@@ -50,5 +53,11 @@ public class Spawner : MonoBehaviour
             new Vector2(Random.Range(0, 2) == 1 ? Screen.width + offScreenBuffer : 0 - offScreenBuffer, 0)).x, spawnY);
         return spawnPosition;
 
+    }
+
+    private void OnDisable()
+    {
+        Boss.bossSpawned -= () => bossAlive = true;
+        Boss.bossDied -= () => bossAlive = false;
     }
 }

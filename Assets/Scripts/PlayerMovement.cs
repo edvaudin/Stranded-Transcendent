@@ -30,6 +30,7 @@ public class PlayerMovement : MonoBehaviour
         rap = GetComponent<RandomAudioPlayer>();
         psm.moveSpeed.valueChanged += UpdateMoveSpeed;
         PlayerCombat.playerDied += OnPlayerDeath;
+        BossSpawner.allBossesKilled += OnPlayerDeath;
     }
 
     private void OnPlayerDeath()
@@ -65,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         controls.MK.Restart.performed -= ReloadScene;
         controls.MK.Exit.performed -= Quit;
         psm.moveSpeed.valueChanged -= UpdateMoveSpeed;
+        BossSpawner.allBossesKilled -= OnPlayerDeath;
     }
 
     private void FixedUpdate()

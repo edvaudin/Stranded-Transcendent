@@ -30,6 +30,7 @@ public class PlayerCombat : MonoBehaviour
     private Vector3 currentFireSpawnPoint;
     public static Action playerDied;
     private int currentBaseHealth;
+    bool playerDead = false;
 
     private void Awake()
     {
@@ -43,6 +44,7 @@ public class PlayerCombat : MonoBehaviour
         psm.fireDelay.valueChanged += UpdateFireDelay;
         psm.projectileSpeed.valueChanged += UpdateProjectileSpeed;
         psm.projectileRange.valueChanged += UpdateProjectileRange;
+        BossSpawner.allBossesKilled += () => playerDead = true;
     }
 
     private void Start()
@@ -65,7 +67,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if (firing && timeSinceLastFired > currentFireDelay)
+        if (firing && timeSinceLastFired > currentFireDelay && !playerDead)
         {
             Fire();
             timeSinceLastFired = 0;
@@ -145,15 +147,15 @@ public class PlayerCombat : MonoBehaviour
         psm.projectileRange.AdjustValue(delta);
     }
 
-    private void PlayHurt(int heatlh)
+    private void PlayHurt(int newHeatlh)
     {
+        if (health.BaseHealth == newHeatlh) { return; }
         audioSource.PlayOneShot(hurt);
     }
     private void OnDeath()
     {
         playerDied?.Invoke();
-
-        
+        playerDead = true;
     }
 
     private void OnDisable()
@@ -163,5 +165,6 @@ public class PlayerCombat : MonoBehaviour
         psm.fireDelay.valueChanged -= UpdateFireDelay;
         psm.projectileSpeed.valueChanged -= UpdateProjectileSpeed;
         psm.projectileRange.valueChanged -= UpdateProjectileRange;
+        BossSpawner.allBossesKilled -= () => playerDead = true;
     }
 }

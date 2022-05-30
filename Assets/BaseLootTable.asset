@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ae18b707c3931479c13da05d2c0a94, type: 3}
   m_Name: BaseLootTable
   m_EditorClassIdentifier: 
-  dropRate: 0
+  dropRate: 0.3
   pickups:
   - {fileID: 8104574526218033235, guid: f05161ad135002947a2cb40208b7c6ce, type: 3}
-  - {fileID: 5592754441476642678, guid: ba30cca2709d67645aa9f23b00ff0be1, type: 3}
   - {fileID: 5561199535228259515, guid: 060b1dadcc7c68d40acddcc2c8fdaadd, type: 3}
   - {fileID: 6271810473116845871, guid: 48a49cf6b4e736843b4da5c0e8d8c218, type: 3}

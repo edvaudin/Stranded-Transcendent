@@ -15,9 +15,12 @@ public class Health : MonoBehaviour
     public Action died;
     public Action<int> changed;
     public Action baseHealthChanged;
+    public bool gameOver = false;
+    
 
     private void Start()
     {
+        BossSpawner.allBossesKilled += () => gameOver = true;
         CurrentHealth = BaseHealth;
     }
 
@@ -33,7 +36,7 @@ public class Health : MonoBehaviour
     }
     public void SetBaseHealth(int value)
     {
-        if (IsDead) { return; }
+        if (IsDead || gameOver) { return; }
         BaseHealth = value;
         if (healthBar) { healthBar.SetMaxValue(BaseHealth); }
         baseHealthChanged?.Invoke();
@@ -42,14 +45,14 @@ public class Health : MonoBehaviour
 
     public void GainHealth(int value)
     {
-        if (IsDead) { return; }
+        if (IsDead || gameOver) { return; }
         CurrentHealth += value;
         if (healthBar) { healthBar.SetValue(CurrentHealth); }
         changed?.Invoke(CurrentHealth);
     }
     public void TakeDamage(int damage)
     {
-        if (IsDead || timeSinceDamaged < iSeconds) { return; }
+        if (IsDead || gameOver || timeSinceDamaged < iSeconds) { return; }
         CurrentHealth -= damage;
         //Debug.Log($"{gameObject.name} just took {damage} damage!");
 
@@ -66,5 +69,10 @@ public class Health : MonoBehaviour
 
         changed?.Invoke(CurrentHealth);
         timeSinceDamaged = 0;
+    }
+
+    private void OnDisable()
+    {
+        BossSpawner.allBossesKilled -= () => gameOver = true;
     }
 }

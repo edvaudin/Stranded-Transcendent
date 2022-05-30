@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 100}
-  m_SizeDelta: {x: 800, y: 200}
+  m_SizeDelta: {x: 1395.5376, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2813377050797997457
 CanvasRenderer:
@@ -79,7 +79,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: DEATH
+  m_Text: FORGOTTEN
 --- !u!1 &2586305368122801232
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -75}
-  m_SizeDelta: {x: 800, y: 150}
+  m_SizeDelta: {x: 1013.0663, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2586305368127719039
 CanvasRenderer:
@@ -235,7 +235,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: DEATH
+  m_Text: FORGOTTEN
 --- !u!1 &2586305368639809948
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &2586305368639809953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -423,6 +423,10 @@ PrefabInstance:
     - target: {fileID: 4197433800815799213, guid: 0e30e55a04ae9ca4ca066f98b14ebc58, type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.05660379
+      objectReference: {fileID: 0}
+    - target: {fileID: 6570282549060165916, guid: 0e30e55a04ae9ca4ca066f98b14ebc58, type: 3}
+      propertyPath: m_text
+      value: back to reality
       objectReference: {fileID: 0}
     - target: {fileID: 7198832420426097045, guid: 0e30e55a04ae9ca4ca066f98b14ebc58, type: 3}
       propertyPath: m_Pivot.x
