@@ -104,6 +104,6 @@ MonoBehaviour:
   meleeDamage: 1
   lootTable: {fileID: 11400000, guid: 4d33453da25cfca42b714c542ae15a06, type: 2}
   projectile: {fileID: -706952548970084690, guid: 096a0eebd0003244183a110c22d3c8d2, type: 3}
-  fireRate: 1
+  fireRate: 2
   projectileSpawnGap: 2
-  projectileSpeed: 5
+  projectileSpeed: 3

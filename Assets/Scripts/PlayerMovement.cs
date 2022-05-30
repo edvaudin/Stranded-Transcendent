@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
             playerInput.InitializeControls();
         }
         controls = playerInput.PlayerController;
-        //controls.MK.Move.performed += ctx => Move(ctx.ReadValue<Vector2>());
         move = controls.MK.Move;
         move.Enable();
 

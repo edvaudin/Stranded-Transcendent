@@ -23,7 +23,7 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (increasing)
+        if (increasing && spawnRate > 0.2f)
         {
             spawnRate -= spawnAcceleration * Time.deltaTime;
         }

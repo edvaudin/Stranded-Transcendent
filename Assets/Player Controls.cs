@@ -134,7 +134,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""79ba2850-1d7c-4579-82a7-393ed57e9458"",
-                    ""path"": ""<Keyboard>/x"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
