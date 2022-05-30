@@ -64493,15 +64493,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1070166573442815582, guid: f5d347d065ce1244db536e1a0f002a2c, type: 3}
       propertyPath: bosses.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1070166573442815582, guid: f5d347d065ce1244db536e1a0f002a2c, type: 3}
       propertyPath: bosses.Array.data[0].bossPrefab
       value: 
       objectReference: {fileID: 1503909229196255617, guid: ac4e7199087489b4c9404263b6a952a2, type: 3}
     - target: {fileID: 1070166573442815582, guid: f5d347d065ce1244db536e1a0f002a2c, type: 3}
+      propertyPath: bosses.Array.data[1].bossPrefab
+      value: 
+      objectReference: {fileID: 1503909229196255617, guid: 4fb60be299a05a8478157dbb86e10ae9, type: 3}
+    - target: {fileID: 1070166573442815582, guid: f5d347d065ce1244db536e1a0f002a2c, type: 3}
+      propertyPath: bosses.Array.data[2].bossPrefab
+      value: 
+      objectReference: {fileID: 1503909229196255617, guid: bc371f2dd788e274095d70883996288b, type: 3}
+    - target: {fileID: 1070166573442815582, guid: f5d347d065ce1244db536e1a0f002a2c, type: 3}
       propertyPath: bosses.Array.data[0].killCountRequired
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1070166573442815582, guid: f5d347d065ce1244db536e1a0f002a2c, type: 3}
       propertyPath: bosses.Array.data[1].killCountRequired

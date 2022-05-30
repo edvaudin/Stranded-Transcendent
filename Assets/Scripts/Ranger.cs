@@ -12,7 +12,7 @@ public class Ranger : Enemy
     protected override void Chase()
     {
         base.Chase();
-        if (timeSinceFired > fireRate)
+        if (timeSinceFired > fireRate && shouldAttack)
         {
             Fire();
             

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d027e4e09bd4504a8b740f7188b3b4a, type: 3}
   m_Name: FireDelayReducer
   m_EditorClassIdentifier: 
-  displayName: Mystical White Powder
-  description: I feel quick on the draw!
+  displayName: Chalked Scarab Dust
+  description: Stimulating!
   icon: {fileID: 21300000, guid: b53966c3841e0724999b730c7849c182, type: 3}

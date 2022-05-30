@@ -88,4 +88,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickUpSound: {fileID: 8300000, guid: b5e9041e1b699b840a9e455ed7a52520, type: 3}
   pickupData: {fileID: 11400000, guid: 145a3799098b63f45b62448549f13556, type: 2}
-  delta: -0.1
+  delta: -0.05

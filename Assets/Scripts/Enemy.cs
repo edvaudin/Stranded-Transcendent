@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] LootTable lootTable;
 
     protected float timeSinceLastSawPlayer = Mathf.Infinity;
-    private bool shouldAttack = true;
+    protected bool shouldAttack = true;
 
     protected virtual void Awake()
     {

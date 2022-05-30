@@ -7,7 +7,9 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] List<GameObject> enemies;
     [SerializeField] float spawnRate = 5f;
+    [SerializeField] float spawnAcceleration = 0.01f;
     [SerializeField] float offScreenBuffer = 5f;
+    [SerializeField] bool increasing = false;
     private float timeSinceLastSpawn = Mathf.Infinity;
     Camera cam;
     bool bossAlive = false;
@@ -21,6 +23,10 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
+        if (increasing)
+        {
+            spawnRate -= spawnAcceleration * Time.deltaTime;
+        }
         if (timeSinceLastSpawn > spawnRate && !bossAlive)
         {
             Spawn();

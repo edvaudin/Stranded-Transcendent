@@ -151017,6 +151017,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1907131240179789045, guid: 29221826dc6b51446a822cc402909f62, type: 3}
+      propertyPath: m_Text
+      value: DEATH
+      objectReference: {fileID: 0}
     - target: {fileID: 2478282727915384061, guid: 29221826dc6b51446a822cc402909f62, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -151284,6 +151288,14 @@ PrefabInstance:
     - target: {fileID: 5219083336990402286, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
       propertyPath: spawnRate
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219083336990402286, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
+      propertyPath: increasing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5219083336990402286, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
+      propertyPath: spawnAcceleration
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5219083336990402286, guid: db5890310ab8a8747bd48e3fa4179629, type: 3}
       propertyPath: enemies.Array.size
