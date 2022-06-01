@@ -52,6 +52,7 @@ public class Projectile : MonoBehaviour
         {
             health.TakeDamage(damage);
         }
+        Instantiate(impactParticles, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

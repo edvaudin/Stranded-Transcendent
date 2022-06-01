@@ -55,6 +55,8 @@ public class Health : MonoBehaviour
         CurrentHealth -= damage;
         //Debug.Log($"{gameObject.name} just took {damage} damage!");
 
+        StartCoroutine(FlashCoroutine());
+
         if (CurrentHealth <= 0) {
             died?.Invoke();
             IsDead = true;
@@ -69,4 +71,28 @@ public class Health : MonoBehaviour
         changed?.Invoke(CurrentHealth);
         timeSinceDamaged = 0;
     }
+
+    private IEnumerator FlashCoroutine()
+    {
+        SpriteRenderer[] spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        List<Color> baseColors = new List<Color>();
+        float duration = iSeconds;
+        while (duration > 0)
+        {
+            foreach (SpriteRenderer spriteRenderer in spriteRenderers)
+            {
+                baseColors.Add(spriteRenderer.color);
+                spriteRenderer.color = Color.red;
+            }
+            duration -= Time.deltaTime;
+            
+
+            yield return null;
+        }
+        for (int i = 0; i < spriteRenderers.Length; i++)
+        {
+            spriteRenderers[i].color = baseColors[i];
+        }
+    }
+
 }
