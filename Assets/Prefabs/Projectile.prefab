@@ -237,4 +237,5 @@ MonoBehaviour:
   damage: 1
   minPitch: 0.9
   maxPitch: 1.1
+  impactParticles: {fileID: 2690636343695053566, guid: 4e101179872fab445817e07cd2299102, type: 3}
   rangeInSeconds: 0.75

@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected int damage = 1;
     [SerializeField] protected float minPitch = 0.9f;
     [SerializeField] protected float maxPitch = 1.1f;
+    [SerializeField] protected GameObject impactParticles;
     protected float rangeTimer = 0;
     [SerializeField] protected float rangeInSeconds = 1.5f;
 
@@ -60,9 +61,9 @@ public class Projectile : MonoBehaviour
         {
             if (!collision.transform.parent.TryGetComponent<Health>(out _))
             {
+                Instantiate(impactParticles, transform.position, Quaternion.identity);
                 Destroy(gameObject);
             }
         }
-        
     }
 }
