@@ -122,8 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c0252ad9613a1c46abeb0515bde3b3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseHealth: 3
+  <BaseHealth>k__BackingField: 3
   iSeconds: 1
+  gameOver: 0
 --- !u!58 &1598421077
 CircleCollider2D:
   m_ObjectHideFlags: 0

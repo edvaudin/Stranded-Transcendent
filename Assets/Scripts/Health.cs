@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
 {
     [field: SerializeField] public int BaseHealth { get; private set; } = 3;
     [SerializeField] public float iSeconds = 1;
+
     private float timeSinceDamaged = Mathf.Infinity;
 
     public UISlider healthBar { get; private set; }
@@ -15,12 +16,9 @@ public class Health : MonoBehaviour
     public Action died;
     public Action<int> changed;
     public Action baseHealthChanged;
-    public bool gameOver = false;
-    
 
     private void Start()
     {
-        BossSpawner.allBossesKilled += () => gameOver = true;
         CurrentHealth = BaseHealth;
     }
 
@@ -36,7 +34,7 @@ public class Health : MonoBehaviour
     }
     public void SetBaseHealth(int value)
     {
-        if (IsDead || gameOver) { return; }
+        if (IsDead || GameManager.Instance.State != GameState.Playing) { return; }
         BaseHealth = value;
         if (healthBar) { healthBar.SetMaxValue(BaseHealth); }
         baseHealthChanged?.Invoke();
@@ -45,14 +43,15 @@ public class Health : MonoBehaviour
 
     public void GainHealth(int value)
     {
-        if (IsDead || gameOver) { return; }
+        if (IsDead || GameManager.Instance.State != GameState.Playing) { return; }
         CurrentHealth += value;
         if (healthBar) { healthBar.SetValue(CurrentHealth); }
         changed?.Invoke(CurrentHealth);
     }
+
     public void TakeDamage(int damage)
     {
-        if (IsDead || gameOver || timeSinceDamaged < iSeconds) { return; }
+        if (IsDead || GameManager.Instance.State != GameState.Playing || timeSinceDamaged < iSeconds) { return; }
         CurrentHealth -= damage;
         //Debug.Log($"{gameObject.name} just took {damage} damage!");
 
@@ -69,10 +68,5 @@ public class Health : MonoBehaviour
 
         changed?.Invoke(CurrentHealth);
         timeSinceDamaged = 0;
-    }
-
-    private void OnDisable()
-    {
-        BossSpawner.allBossesKilled -= () => gameOver = true;
     }
 }

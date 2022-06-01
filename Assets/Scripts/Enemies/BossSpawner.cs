@@ -7,9 +7,8 @@ using UnityEngine.AI;
 public class BossSpawner : MonoBehaviour
 {
     [SerializeField] List<BossMilestone> bosses;
-    private int enemyDeathCount = 0;
-
     [SerializeField] float offScreenBuffer = 5f;
+    private int enemyDeathCount = 0;
     Camera cam;
     public bool bossAlive { get; private set; } = false;
     public static Action allBossesKilled;
@@ -37,6 +36,7 @@ public class BossSpawner : MonoBehaviour
             if (!milestone.spawned) { return; }
         }
         allBossesKilled?.Invoke();
+        GameManager.Instance.UpdateGameState(GameState.Victory);
     }
     private void OnEnemyDeath()
     {

@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     protected NavMeshAgent agent;
     protected GameObject player;
     protected Health health;
-    private Health playerHealth;
     public static Action died;
     [SerializeField] protected float chaseDistance = 10f;
     [SerializeField] protected float rotationDamping = 0.2f;
@@ -23,18 +22,16 @@ public class Enemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
-        playerHealth = player.GetComponent<Health>();
         health = GetComponent<Health>();
         health.died += OnDeath;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
-        BossSpawner.allBossesKilled += () => shouldAttack = false;
         SampleAreaIfNotOnNavMesh();
     }
 
     protected virtual void Update()
     {
-        if (playerHealth.IsDead) { shouldAttack = false; }
+        if (GameManager.Instance.State != GameState.Playing) { return; }
         if (InAttackRangeOfPlayer() && shouldAttack)
         {
             Chase();
@@ -99,7 +96,6 @@ public class Enemy : MonoBehaviour
     private void OnDisable()
     {
         health.died -= OnDeath;
-        BossSpawner.allBossesKilled -= () => shouldAttack = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

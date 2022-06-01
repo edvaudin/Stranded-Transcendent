@@ -5,14 +5,21 @@ using UnityEngine.AI;
 
 public class Spawner : MonoBehaviour
 {
+    [Header("Enemies that can spawn")]
     [SerializeField] List<GameObject> enemies;
+
+    [Header("Spawn Rate")]
     [SerializeField] float spawnRate = 5f;
     [SerializeField] float spawnAcceleration = 0.01f;
-    [SerializeField] float offScreenBuffer = 5f;
+    [SerializeField, Range(0f, 1f)] float minSpawnRate = 0.2f;
     [SerializeField] bool increasing = false;
     private float timeSinceLastSpawn = Mathf.Infinity;
-    Camera cam;
-    bool bossAlive = false;
+
+    [Header("Spawn Locations")]
+    [SerializeField] float offScreenBuffer = 5f;
+
+    private Camera cam;
+    private bool bossAlive = false;
 
     private void Awake()
     {
@@ -23,10 +30,16 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if (increasing && spawnRate > 0.2f)
+        if (GameManager.Instance.State != GameState.Playing) { return; }
+        if (increasing)
         {
-            spawnRate -= spawnAcceleration * Time.deltaTime;
+            spawnRate = Mathf.Max(spawnRate - (spawnAcceleration * Time.deltaTime), minSpawnRate);
         }
+        SpawnEnemiesAtRate();
+    }
+
+    private void SpawnEnemiesAtRate()
+    {
         if (timeSinceLastSpawn > spawnRate && !bossAlive)
         {
             Spawn();

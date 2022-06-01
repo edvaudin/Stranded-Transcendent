@@ -7,33 +7,58 @@ using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
-    [SerializeField] GameObject psmPrefab;
-    [SerializeField] GameObject projectile;
-    [SerializeField] float currentFireDelay;
-    [SerializeField] float currentProjectileSpeed = 20f;
-    [SerializeField] float currentProjectileRange = 1.5f;
-    private float timeSinceLastFired = Mathf.Infinity;
-    [SerializeField] float projectileSpawnGap = 2f;
-    [SerializeField] AudioClip hurt;
+    [Header("Sprites")]
     [SerializeField] SpriteRenderer sr;
     [SerializeField] Sprite upSprite;
     [SerializeField] Sprite downSprite;
     [SerializeField] Sprite leftSprite;
+
+    [Header("Combat")]
+    [SerializeField] GameObject psmPrefab;
+    [SerializeField] GameObject projectile;
+    [SerializeField] float projectileSpawnGap = 2f;
+    private float currentFireDelay;
+    private float currentProjectileSpeed = 20f;
+    private float currentProjectileRange = 1.5f;
+    private int currentBaseHealth;
+    private float timeSinceLastFired = Mathf.Infinity;
+
+    [Header("Audio")]
+    [SerializeField] AudioClip hurt;
+
     private PlayerInput playerInput;
     private PlayerControls controls;
     private PlayerMovement playerMovement;
     private Health health;
     private AudioSource audioSource;
-    private bool firing = false;
     private PlayerStatManager psm;
     private Quaternion currentFireDirection;
     private Vector3 currentFireSpawnPoint;
     public static Action playerDied;
-    private int currentBaseHealth;
-    bool playerDead = false;
     private InputAction fire;
 
+    private void OnEnable()
+    {
+        EnableControls();
+    }
+
     private void Awake()
+    {
+        GetComponents();
+        SubscribeToEvents();
+    }
+
+    private void SubscribeToEvents()
+    {
+        health.died += OnDeath;
+        health.changed += PlayHurt;
+        psm.health.valueChanged += UpdateHealth;
+        psm.fireDelay.valueChanged += UpdateFireDelay;
+        psm.projectileSpeed.valueChanged += UpdateProjectileSpeed;
+        psm.projectileRange.valueChanged += UpdateProjectileRange;
+    }
+
+    private void GetComponents()
     {
         playerInput = FindObjectOfType<PlayerInput>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -41,11 +66,6 @@ public class PlayerCombat : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         psm = FindObjectOfType<PlayerStatManager>();
         if (psm == null) { psm = Instantiate(psmPrefab).GetComponent<PlayerStatManager>(); }
-        psm.health.valueChanged += UpdateHealth;
-        psm.fireDelay.valueChanged += UpdateFireDelay;
-        psm.projectileSpeed.valueChanged += UpdateProjectileSpeed;
-        psm.projectileRange.valueChanged += UpdateProjectileRange;
-        BossSpawner.allBossesKilled += () => playerDead = true;
     }
 
     private void Start()
@@ -57,19 +77,17 @@ public class PlayerCombat : MonoBehaviour
         health.SetBaseHealth(currentBaseHealth);
     }
 
-    private void OnEnable()
+    private void EnableControls()
     {
         if (!playerInput.ControlsInitialized) { playerInput.InitializeControls(); }
         controls = playerInput.PlayerController;
         fire = controls.MK.Fire;
         fire.Enable();
-        health.died += OnDeath;
-        health.changed += PlayHurt;
     }
 
     private void Update()
     {
-        if (playerDead) { return; }
+        if (GameManager.Instance.State != GameState.Playing) { return; }
         if (fire.ReadValue<Vector2>().magnitude > Mathf.Epsilon)
         {
             RotatePlayer(fire.ReadValue<Vector2>());
@@ -78,7 +96,6 @@ public class PlayerCombat : MonoBehaviour
                 Fire();
                 timeSinceLastFired = 0;
             }
-            
         }
         timeSinceLastFired += Time.deltaTime;
     }
@@ -131,23 +148,12 @@ public class PlayerCombat : MonoBehaviour
         health.SetBaseHealth(currentBaseHealth);
         health.GainHealth(currentBaseHealth - health.CurrentHealth);
     }
-    public void UpdateFireDelay(float newValue) { currentFireDelay = newValue; }
-    private void UpdateProjectileSpeed(float newValue) { currentProjectileSpeed = newValue; }
-    private void UpdateProjectileRange(float newValue) { currentProjectileRange = newValue; }
-
-    public void AdjustBaseHealth(int delta)
-    {
-        psm.health.AdjustValue(delta);
-    }
-    public void AdjustFireDelay(float delta)
-    {
-        psm.fireDelay.AdjustValue(delta);
-    }
-
-    public void AdjustProjectileRange(float delta)
-    {
-        psm.projectileRange.AdjustValue(delta);
-    }
+    public void UpdateFireDelay(float newValue) => currentFireDelay = newValue;
+    private void UpdateProjectileSpeed(float newValue) => currentProjectileSpeed = newValue; 
+    private void UpdateProjectileRange(float newValue) => currentProjectileRange = newValue; 
+    public void AdjustBaseHealth(int delta) => psm.health.AdjustValue(delta);
+    public void AdjustFireDelay(float delta) => psm.fireDelay.AdjustValue(delta);
+    public void AdjustProjectileRange(float delta) => psm.projectileRange.AdjustValue(delta);
 
     private void PlayHurt(int newHeatlh)
     {
@@ -157,16 +163,22 @@ public class PlayerCombat : MonoBehaviour
     private void OnDeath()
     {
         playerDied?.Invoke();
-        playerDead = true;
+        GameManager.Instance.UpdateGameState(GameState.GameOver);
     }
 
     private void OnDisable()
     {
         fire.Disable();
+        UnsubscribeFromEvents();
+    }
+
+    private void UnsubscribeFromEvents()
+    {
         health.died -= OnDeath;
+        health.changed -= PlayHurt;
+        psm.health.valueChanged -= UpdateHealth;
         psm.fireDelay.valueChanged -= UpdateFireDelay;
         psm.projectileSpeed.valueChanged -= UpdateProjectileSpeed;
         psm.projectileRange.valueChanged -= UpdateProjectileRange;
-        BossSpawner.allBossesKilled -= () => playerDead = true;
     }
 }
