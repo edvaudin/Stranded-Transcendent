@@ -346,6 +346,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scene Change Button
       objectReference: {fileID: 0}
+    - target: {fileID: 2220903379274732332, guid: 0e30e55a04ae9ca4ca066f98b14ebc58, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2901989587499487899, guid: 0e30e55a04ae9ca4ca066f98b14ebc58, type: 3}
       propertyPath: m_Color.b
       value: 1

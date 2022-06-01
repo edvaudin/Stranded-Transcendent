@@ -31,6 +31,7 @@ public class PlayerCombat : MonoBehaviour
     public static Action playerDied;
     private int currentBaseHealth;
     bool playerDead = false;
+    private InputAction fire;
 
     private void Awake()
     {
@@ -60,27 +61,28 @@ public class PlayerCombat : MonoBehaviour
     {
         if (!playerInput.ControlsInitialized) { playerInput.InitializeControls(); }
         controls = playerInput.PlayerController;
-        controls.MK.Fire.performed += OnFire;
+        fire = controls.MK.Fire;
+        fire.Enable();
         health.died += OnDeath;
         health.changed += PlayHurt;
     }
 
     private void Update()
     {
-        if (firing && timeSinceLastFired > currentFireDelay && !playerDead)
+        if (playerDead) { return; }
+        if (fire.ReadValue<Vector2>().magnitude > Mathf.Epsilon)
         {
-            Fire();
-            timeSinceLastFired = 0;
+            RotatePlayer(fire.ReadValue<Vector2>());
+            if (timeSinceLastFired > currentFireDelay)
+            {
+                Fire();
+                timeSinceLastFired = 0;
+            }
+            
         }
         timeSinceLastFired += Time.deltaTime;
     }
 
-    // Is currently sticky as holding one key blocks event invocation for other keys in composite.
-    private void OnFire(InputAction.CallbackContext ctx)
-    {
-        firing = ctx.control.IsPressed();
-        RotatePlayer(ctx.ReadValue<Vector2>());
-    }
     private void Fire()
     {
         if (!gameObject.scene.IsValid()) { return; }
@@ -160,7 +162,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnDisable()
     {
-        controls.MK.Fire.performed -= OnFire;
+        fire.Disable();
         health.died -= OnDeath;
         psm.fireDelay.valueChanged -= UpdateFireDelay;
         psm.projectileSpeed.valueChanged -= UpdateProjectileSpeed;
