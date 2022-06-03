@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
 {
     private PlayerStatManager psm;
     private PlayerInput playerInput;
-    private PlayerControls controls;
     private RandomAudioPlayer rap;
 
     private Rigidbody2D rb;
@@ -19,12 +18,10 @@ public class PlayerMovement : MonoBehaviour
     private float timeSinceLastFootstep = Mathf.Infinity;
     public Vector3 CurrentVelocity { get; private set; }
 
-    InputAction move;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        playerInput = FindObjectOfType<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
         psm = FindObjectOfType<PlayerStatManager>();
         rap = GetComponent<RandomAudioPlayer>();
         psm.moveSpeed.valueChanged += UpdateMoveSpeed;
@@ -40,30 +37,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        if (!playerInput.ControlsInitialized)
-        {
-            playerInput.InitializeControls();
-        }
-        controls = playerInput.PlayerController;
-        move = controls.MK.Move;
-        move.Enable();
 
-        controls.MK.Restart.performed += ReloadScene;
-        controls.MK.Exit.performed += Quit;
+        playerInput.actions["Restart"].performed += ReloadScene;
+        playerInput.actions["Exit"].performed += Quit;
     }
 
     private void OnDisable()
     {
-        move.Disable();
-        controls.MK.Restart.performed -= ReloadScene;
-        controls.MK.Exit.performed -= Quit;
+        playerInput.actions["Restart"].performed -= ReloadScene;
+        playerInput.actions["Exit"].performed -= Quit;
         psm.moveSpeed.valueChanged -= UpdateMoveSpeed;
     }
 
     private void FixedUpdate()
     {
         if (GameManager.Instance.State != GameState.Playing) { return; }
-        if (move.ReadValue<Vector2>().magnitude > Mathf.Epsilon)
+        var movement = playerInput.actions["Move"].ReadValue<Vector2>();
+        if (movement.magnitude > Mathf.Epsilon)
         {
             timeSinceLastFootstep += Time.deltaTime;
             if (timeSinceLastFootstep > footstepRate)
@@ -71,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
                 timeSinceLastFootstep = 0;
                 rap.Play("footsteps");
             }
-            Move(move.ReadValue<Vector2>());
+            Move(movement);
         }
         CurrentVelocity = rb.velocity;
     }

@@ -35,12 +35,6 @@ public class PlayerCombat : MonoBehaviour
     private Quaternion currentFireDirection;
     private Vector3 currentFireSpawnPoint;
     public static Action playerDied;
-    private InputAction fire;
-
-    private void OnEnable()
-    {
-        EnableControls();
-    }
 
     private void Awake()
     {
@@ -60,7 +54,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void GetComponents()
     {
-        playerInput = FindObjectOfType<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
         playerMovement = GetComponent<PlayerMovement>();
         health = GetComponent<Health>();
         audioSource = GetComponent<AudioSource>();
@@ -77,20 +71,13 @@ public class PlayerCombat : MonoBehaviour
         health.SetBaseHealth(currentBaseHealth);
     }
 
-    private void EnableControls()
-    {
-        if (!playerInput.ControlsInitialized) { playerInput.InitializeControls(); }
-        controls = playerInput.PlayerController;
-        fire = controls.MK.Fire;
-        fire.Enable();
-    }
-
     private void Update()
     {
         if (GameManager.Instance.State != GameState.Playing) { return; }
-        if (fire.ReadValue<Vector2>().magnitude > Mathf.Epsilon)
+        var fire = playerInput.actions["Fire"].ReadValue<Vector2>();
+        if (fire.magnitude > Mathf.Epsilon)
         {
-            RotatePlayer(fire.ReadValue<Vector2>());
+            RotatePlayer(fire);
             if (timeSinceLastFired > currentFireDelay)
             {
                 Fire();
@@ -168,7 +155,6 @@ public class PlayerCombat : MonoBehaviour
 
     private void OnDisable()
     {
-        fire.Disable();
         UnsubscribeFromEvents();
     }
 

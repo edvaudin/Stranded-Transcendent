@@ -44,6 +44,7 @@ public class SceneManagement : MonoBehaviour
         darkness.FadeIn(levelTransitionTime);
         musicPlayer.StopMusic();
         yield return new WaitForSeconds(levelTransitionTime);
+        GameManager.Instance.UpdateGameState(GameState.Playing);
         SceneManager.LoadScene(sceneName);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

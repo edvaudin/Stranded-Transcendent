@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8949007748105458863}
-  - component: {fileID: 8949007748105458860}
   - component: {fileID: 8949007748105458861}
   - component: {fileID: 8949007748105458858}
   - component: {fileID: 8949007748105458859}
@@ -17,6 +16,7 @@ GameObject:
   - component: {fileID: 1598421077}
   - component: {fileID: 1598421078}
   - component: {fileID: 8456050742400777977}
+  - component: {fileID: 1090038215396116332}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -40,18 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8949007748105458860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8949007748105458857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e94b2efedb17543ac9e7664859aa15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8949007748105458861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78,17 +66,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a28b77b85284a49b23796cd9c57e26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  psmPrefab: {fileID: 0}
-  projectile: {fileID: 1640090358565794721, guid: 980d042edbf008644ae61ec5a1abdd71, type: 3}
-  currentFireDelay: 0.5
-  currentProjectileSpeed: 20
-  currentProjectileRange: 1.5
-  projectileSpawnGap: 1
-  hurt: {fileID: 8300000, guid: e161b78faf904654caeb435cbbd318f3, type: 3}
   sr: {fileID: 8949007748496366791}
   upSprite: {fileID: 21300000, guid: 3a946b06b71e9c24984b0f1d5414b30e, type: 3}
   downSprite: {fileID: 21300000, guid: 812c00622665396438df95513f9c2d73, type: 3}
   leftSprite: {fileID: 21300000, guid: 3f11e4c371e51b345a7f2832a0606023, type: 3}
+  psmPrefab: {fileID: 0}
+  projectile: {fileID: 1640090358565794721, guid: 980d042edbf008644ae61ec5a1abdd71, type: 3}
+  projectileSpawnGap: 1
+  hurt: {fileID: 8300000, guid: e161b78faf904654caeb435cbbd318f3, type: 3}
 --- !u!50 &8949007748105458859
 Rigidbody2D:
   serializedVersion: 4
@@ -123,8 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <BaseHealth>k__BackingField: 3
-  iSeconds: 1
-  gameOver: 0
+  iSeconds: 0.5
 --- !u!58 &1598421077
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -272,6 +256,52 @@ MonoBehaviour:
     - {fileID: 8300000, guid: f3f683944e6861645a16971f3f17ca40, type: 3}
     - {fileID: 8300000, guid: acd6fcd8cc56d694db1662af3026d455, type: 3}
     - {fileID: 8300000, guid: 39b25c6fb65fbde4f9f3534899953f28, type: 3}
+--- !u!114 &1090038215396116332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8949007748105458857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 3f2029555a3a9444883e98edb851f5d4, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3336df22-2a14-4478-b8fa-c74663f688f9
+    m_ActionName: M&K/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7a4f44c6-05a3-4a42-850b-51e68d1fe402
+    m_ActionName: M&K/Fire[/Keyboard/i,/Keyboard/k,/Keyboard/j,/Keyboard/l,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bac26496-7de8-4eb5-a922-4bf84264ac16
+    m_ActionName: M&K/Restart[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 316bf786-d210-442a-91ee-b565a4d0b143
+    m_ActionName: M&K/Exit[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: M&K
+  m_DefaultActionMap: M&K
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &8949007748496366789
 GameObject:
   m_ObjectHideFlags: 0

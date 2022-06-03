@@ -14,6 +14,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float rotationDamping = 0.2f;
     [SerializeField] protected int meleeDamage = 1;
     [SerializeField] LootTable lootTable;
+    [Header("Audio")]
+    [SerializeField] AudioClip hurt;
+    [SerializeField] GameObject deathParticles;
+    protected AudioSource audioSource;
 
     protected float timeSinceLastSawPlayer = Mathf.Infinity;
     protected bool shouldAttack = true;
@@ -23,7 +27,9 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = FindObjectOfType<PlayerMovement>().gameObject;
         health = GetComponent<Health>();
+        audioSource = GetComponent<AudioSource>();
         health.died += OnDeath;
+        health.changed += OnHurt;
         agent.updateRotation = false;
         agent.updateUpAxis = false;
         SampleAreaIfNotOnNavMesh();
@@ -39,6 +45,10 @@ public class Enemy : MonoBehaviour
         UpdateTimers();
     }
 
+    private void OnHurt(int value)
+    {
+        audioSource.PlayOneShot(hurt);
+    }
     private void UpdateTimers()
     {
         timeSinceLastSawPlayer += Time.deltaTime;
@@ -80,6 +90,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnDeath()
     {
+        Instantiate(deathParticles, transform.position, Quaternion.identity);
         if (lootTable.WillReceiveDrop())
         {
             Instantiate(lootTable.GetRandomPickup(), transform.position, Quaternion.identity);
@@ -96,6 +107,7 @@ public class Enemy : MonoBehaviour
     private void OnDisable()
     {
         health.died -= OnDeath;
+        health.changed -= OnHurt;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
