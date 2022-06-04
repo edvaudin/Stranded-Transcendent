@@ -8,14 +8,20 @@ public class Menu : MonoBehaviour
 {
     [SerializeField] CanvasGroupFader darkness;
     [SerializeField] CanvasGroupFader startButton;
+    [SerializeField] CanvasGroupFader menuFader;
+    [SerializeField] CanvasGroupFader optionsFader;
     [SerializeField] float fadeInTime = 2f;
     [SerializeField] float levelTransitionTime = 2f;
     [SerializeField] AudioClip sceneMusic;
     private MusicPlayer musicPlayer;
+    private CanvasGroup options;
+    private CanvasGroup menu;
 
     private void Awake()
     {
         darkness.gameObject.GetComponent<CanvasGroup>().alpha = 1;
+        options = optionsFader.GetComponent<CanvasGroup>();
+        menu = menuFader.GetComponent<CanvasGroup>();
         musicPlayer = FindObjectOfType<MusicPlayer>(); 
         startButton.gameObject.GetComponent<CanvasGroup>().alpha = 0;
     }
@@ -24,8 +30,23 @@ public class Menu : MonoBehaviour
         StartCoroutine(LoadMenu());
     }
 
+    public void OpenOptions()
+    {
+        StartCoroutine(OpenOptionsRoutine());
+    }
+
+    private IEnumerator OpenOptionsRoutine()
+    {
+        yield return menuFader.FadeOut(0.2f);
+        DisableCanvasGroup(menu);
+        yield return optionsFader.FadeIn(0.2f);
+        EnableCanvasGroup(options);
+    }
+
     private IEnumerator LoadMenu()
     {
+        DisableCanvasGroup(options);
+        EnableCanvasGroup(menu);
         Coroutine showtitle = darkness.FadeOut(fadeInTime);
         yield return showtitle;
         if (sceneMusic) { StartCoroutine(musicPlayer.PlayMusic()); }
@@ -47,5 +68,19 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene(sceneName);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void EnableCanvasGroup(CanvasGroup cg)
+    {
+        cg.alpha = 1;
+        cg.interactable = true;
+        cg.blocksRaycasts = true;
+    }
+
+    private void DisableCanvasGroup(CanvasGroup cg)
+    {
+        cg.alpha = 0;
+        cg.interactable = false;
+        cg.blocksRaycasts = false;
     }
 }

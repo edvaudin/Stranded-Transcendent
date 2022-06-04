@@ -155,7 +155,7 @@
                 },
                 {
                     "name": "Left",
-                    "id": "052b0fe3-d40f-4877-a9d3-693b4cea009b",
+                    "id": "9fa7d209-3da6-46ca-9476-b7836bbad8a8",
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
@@ -166,7 +166,7 @@
                 },
                 {
                     "name": "Right",
-                    "id": "292cb62f-99e6-442e-9ec8-ec934672fd2c",
+                    "id": "86df47b2-ee89-4b1b-9c1c-420ab5711560",
                     "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
