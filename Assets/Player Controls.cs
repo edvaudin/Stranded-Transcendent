@@ -62,6 +62,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Continue"",
+                    ""type"": ""Button"",
+                    ""id"": ""b9715367-12e3-4811-a71f-c28364fdd238"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -251,6 +260,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""81e2a440-66c9-4fd9-8261-d47786f5afcc"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Continue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -280,6 +300,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_MK_Fire = m_MK.FindAction("Fire", throwIfNotFound: true);
         m_MK_Restart = m_MK.FindAction("Restart", throwIfNotFound: true);
         m_MK_Exit = m_MK.FindAction("Exit", throwIfNotFound: true);
+        m_MK_Continue = m_MK.FindAction("Continue", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -343,6 +364,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_MK_Fire;
     private readonly InputAction m_MK_Restart;
     private readonly InputAction m_MK_Exit;
+    private readonly InputAction m_MK_Continue;
     public struct MKActions
     {
         private @PlayerControls m_Wrapper;
@@ -351,6 +373,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_MK_Fire;
         public InputAction @Restart => m_Wrapper.m_MK_Restart;
         public InputAction @Exit => m_Wrapper.m_MK_Exit;
+        public InputAction @Continue => m_Wrapper.m_MK_Continue;
         public InputActionMap Get() { return m_Wrapper.m_MK; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -372,6 +395,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Exit.started -= m_Wrapper.m_MKActionsCallbackInterface.OnExit;
                 @Exit.performed -= m_Wrapper.m_MKActionsCallbackInterface.OnExit;
                 @Exit.canceled -= m_Wrapper.m_MKActionsCallbackInterface.OnExit;
+                @Continue.started -= m_Wrapper.m_MKActionsCallbackInterface.OnContinue;
+                @Continue.performed -= m_Wrapper.m_MKActionsCallbackInterface.OnContinue;
+                @Continue.canceled -= m_Wrapper.m_MKActionsCallbackInterface.OnContinue;
             }
             m_Wrapper.m_MKActionsCallbackInterface = instance;
             if (instance != null)
@@ -388,6 +414,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Exit.started += instance.OnExit;
                 @Exit.performed += instance.OnExit;
                 @Exit.canceled += instance.OnExit;
+                @Continue.started += instance.OnContinue;
+                @Continue.performed += instance.OnContinue;
+                @Continue.canceled += instance.OnContinue;
             }
         }
     }
@@ -407,5 +436,6 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnRestart(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
+        void OnContinue(InputAction.CallbackContext context);
     }
 }

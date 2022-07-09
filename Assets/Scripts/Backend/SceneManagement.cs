@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using VaudinGames.UI;
@@ -18,6 +19,13 @@ public class SceneManagement : MonoBehaviour
     [SerializeField] Button sceneButton;
     protected MusicPlayer musicPlayer;
     [SerializeField] AudioClip sceneMusic;
+    private PlayerInput playerInput;
+    Coroutine waitForKeyboardRoutine = null;
+
+    private void Awake()
+    {
+        playerInput = FindObjectOfType<PlayerInput>();
+    }
 
     protected virtual void Start()
     {
@@ -57,6 +65,7 @@ public class SceneManagement : MonoBehaviour
 
     private IEnumerator PlayerDeath()
     {
+        waitForKeyboardRoutine = StartCoroutine(WaitForKeyboard());
         Coroutine showDeathCanvas = deathScreen.FadeIn(4f);
         
         Coroutine playDeathMusic = StartCoroutine(musicPlayer.PlayOneShotMusic(deathMusic, 3f));
@@ -69,11 +78,19 @@ public class SceneManagement : MonoBehaviour
         yield return playDeathMusic;
         Coroutine showDeathButton = deathButton.FadeIn(2f);
         yield return waitForDeathMusic;
-
     }
 
+    private IEnumerator WaitForKeyboard()
+    {
+        while (!playerInput.actions["Continue"].IsPressed())
+        {
+            yield return null;
+        }
+        OnDeathScreenButtonPress();
+    }
     public void OnDeathScreenButtonPress()
     {
+        if (waitForKeyboardRoutine != null) { StopCoroutine(waitForKeyboardRoutine); }
         if (SceneManager.GetActiveScene().name.Contains("Underworld"))
         {
             Destroy(FindObjectOfType<PlayerStatManager>().gameObject);

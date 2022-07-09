@@ -37,7 +37,7 @@ public class Sandstorm : MonoBehaviour
         if (inSandstorm)
         {
             IncreaseSandstormIntensity();
-            DamagePlayer();
+            DamagePlayerAtRate();
         }
         else
         {
@@ -45,7 +45,7 @@ public class Sandstorm : MonoBehaviour
         }
     }
 
-    private void DamagePlayer()
+    private void DamagePlayerAtRate()
     {
         timeSinceTakenSandstormDamage += Time.deltaTime;
         if (timeSinceTakenSandstormDamage > damageRate)
