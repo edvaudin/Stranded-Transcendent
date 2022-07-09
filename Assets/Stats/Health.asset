@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbe6bf0516f5b742b5749551a9b16db, type: 3}
   m_Name: Health
   m_EditorClassIdentifier: 
-  <BaseValue>k__BackingField: 3
+  <BaseValue>k__BackingField: 6
   <MinValue>k__BackingField: 0
-  <MaxValue>k__BackingField: 10
+  <MaxValue>k__BackingField: 15

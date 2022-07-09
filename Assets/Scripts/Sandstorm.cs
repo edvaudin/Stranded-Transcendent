@@ -8,7 +8,11 @@ public class Sandstorm : MonoBehaviour
 {
     [SerializeField] CanvasGroup sandstormBackground;
     [SerializeField] ParticleSystem sandstormParticles;
+    [SerializeField] float damageRate = 2f;
+    [SerializeField] Health playerHealth;
     private bool inSandstorm = false;
+    private float timeSinceTakenSandstormDamage = 0;
+    
 
     private void Start()
     {
@@ -33,6 +37,7 @@ public class Sandstorm : MonoBehaviour
         if (inSandstorm)
         {
             IncreaseSandstormIntensity();
+            DamagePlayer();
         }
         else
         {
@@ -40,6 +45,15 @@ public class Sandstorm : MonoBehaviour
         }
     }
 
+    private void DamagePlayer()
+    {
+        timeSinceTakenSandstormDamage += Time.deltaTime;
+        if (timeSinceTakenSandstormDamage > damageRate)
+        {
+            playerHealth.TakeDamage(1);
+            timeSinceTakenSandstormDamage = 0;
+        }
+    }
     private void DecreaseSandstormIntensity()
     {
         sandstormParticles.Pause();

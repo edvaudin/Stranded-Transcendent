@@ -17,6 +17,11 @@ public class HeartManager : MonoBehaviour
         health.baseHealthChanged += UpdateBaseHearts;
     }
 
+    private void Start()
+    {
+        UpdateBaseHearts();
+    }
+
     private void UpdateBaseHearts()
     {
         foreach (Image heart in hearts)
