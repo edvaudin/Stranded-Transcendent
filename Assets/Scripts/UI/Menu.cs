@@ -7,7 +7,7 @@ using VaudinGames.UI;
 public class Menu : MonoBehaviour
 {
     [SerializeField] CanvasGroupFader darkness;
-    [SerializeField] CanvasGroupFader startButton;
+    [SerializeField] List<CanvasGroupFader> menuButtons;
     [SerializeField] CanvasGroupFader menuFader;
     [SerializeField] CanvasGroupFader optionsFader;
     [SerializeField] float fadeInTime = 2f;
@@ -23,7 +23,11 @@ public class Menu : MonoBehaviour
         options = optionsFader.GetComponent<CanvasGroup>();
         menu = menuFader.GetComponent<CanvasGroup>();
         musicPlayer = FindObjectOfType<MusicPlayer>(); 
-        startButton.gameObject.GetComponent<CanvasGroup>().alpha = 0;
+        foreach (CanvasGroupFader button in menuButtons)
+        {
+            DisableCanvasGroup(button.gameObject.GetComponent<CanvasGroup>());
+        }
+        
     }
     private void Start()
     {
@@ -35,12 +39,25 @@ public class Menu : MonoBehaviour
         StartCoroutine(OpenOptionsRoutine());
     }
 
+    public void CloseOptions()
+    {
+        StartCoroutine(OpenMenuRoutine());
+    }
+
     private IEnumerator OpenOptionsRoutine()
     {
         yield return menuFader.FadeOut(0.2f);
         DisableCanvasGroup(menu);
         yield return optionsFader.FadeIn(0.2f);
         EnableCanvasGroup(options);
+    }
+
+    private IEnumerator OpenMenuRoutine()
+    {
+        yield return optionsFader.FadeOut(0.2f);
+        DisableCanvasGroup(options);
+        yield return menuFader.FadeIn(0.2f);
+        EnableCanvasGroup(menu);
     }
 
     private IEnumerator LoadMenu()
@@ -50,9 +67,16 @@ public class Menu : MonoBehaviour
         Coroutine showtitle = darkness.FadeOut(fadeInTime);
         yield return showtitle;
         if (sceneMusic) { StartCoroutine(musicPlayer.PlayMusic()); }
-        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Coroutine showStartButton = startButton.FadeIn(2f);
+        foreach (CanvasGroupFader button in menuButtons)
+        {
+            yield return button.FadeIn(0.5f);
+        }
+        foreach (CanvasGroupFader button in menuButtons)
+        {
+            EnableCanvasGroup(button.gameObject.GetComponent<CanvasGroup>());
+        }
     }
 
     public void StartGame()
