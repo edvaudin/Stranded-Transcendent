@@ -16,7 +16,7 @@ public class LootTable : ScriptableObject
     public GameObject GetRandomPickup()
     {
         float total = 0;
-        Dictionary<Pickup, float> pickupDictionary= new Dictionary<Pickup, float>();
+        Dictionary<Pickup, float> pickupDictionary = new Dictionary<Pickup, float>();
         foreach (Pickup pickup in pickups)
         {
             pickupDictionary.Add(pickup, total + pickup.pickupData.dropRate);

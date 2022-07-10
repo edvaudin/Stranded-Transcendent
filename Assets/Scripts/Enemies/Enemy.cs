@@ -58,8 +58,8 @@ public class Enemy : MonoBehaviour
 
     private void SpawnBlood()
     {
-        SpriteRenderer sr = Instantiate(bloodDecal, transform.position, Quaternion.identity).GetComponent<SpriteRenderer>();
-        sr.sprite = bloodSprites[UnityEngine.Random.Range(0, bloodSprites.Count)];
+        var blood = Instantiate(bloodDecal, transform.position, Quaternion.identity);
+        blood.GetComponent<BloodDecal>().Initialize(bloodSprites[UnityEngine.Random.Range(0, bloodSprites.Count)]);
     }
 
     private void UpdateTimers()
@@ -103,6 +103,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void OnDeath()
     {
+        SpawnBlood();
         Instantiate(deathParticles, transform.position, Quaternion.identity);
         if (lootTable.WillReceiveDrop())
         {
