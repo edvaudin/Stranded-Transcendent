@@ -6,7 +6,7 @@ using UnityEngine;
 public class LootTable : ScriptableObject
 {
     [SerializeField] float dropRate = 0.5f;
-    [SerializeField] List<GameObject> pickups;
+    [SerializeField] List<Pickup> pickups;
 
     public bool WillReceiveDrop()
     {
@@ -15,6 +15,22 @@ public class LootTable : ScriptableObject
 
     public GameObject GetRandomPickup()
     {
-        return pickups[Random.Range(0, pickups.Count)];
+        float total = 0;
+        Dictionary<Pickup, float> pickupDictionary= new Dictionary<Pickup, float>();
+        foreach (Pickup pickup in pickups)
+        {
+            pickupDictionary.Add(pickup, total + pickup.pickupData.dropRate);
+            total += pickup.pickupData.dropRate;
+        }
+        float random = Random.Range(0, total);
+        foreach (KeyValuePair<Pickup, float> pair in pickupDictionary)
+        {
+            if (random <= pair.Value)
+            {
+                return pair.Key.gameObject;
+            }
+        }
+        Debug.LogWarning("Could not get random pickup");
+        return pickups[0].gameObject;
     }
 }

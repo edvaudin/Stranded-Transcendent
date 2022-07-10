@@ -6,7 +6,7 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     [SerializeField] AudioClip pickUpSound;
-    [SerializeField] PickupData pickupData;
+    public PickupData pickupData;
     public static Action<PickupData> pickupAdded;
     private AudioSource audioSource;
     private SpriteRenderer sr;

@@ -15,3 +15,4 @@ MonoBehaviour:
   displayName: Amulet of Ba
   description: Shoot for the horizon!
   icon: {fileID: 21300000, guid: 0be08784876324c48b6f960aca3d4d8a, type: 3}
+  dropRate: 0.6

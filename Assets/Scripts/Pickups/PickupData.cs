@@ -8,5 +8,6 @@ public class PickupData : ScriptableObject
     public string displayName;
     public string description;
     public Sprite icon;
+    public float dropRate;
 }
 

@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropRate: 0.3
   pickups:
-  - {fileID: 5561199535228259515, guid: 060b1dadcc7c68d40acddcc2c8fdaadd, type: 3}
-  - {fileID: 5561199535228259515, guid: 060b1dadcc7c68d40acddcc2c8fdaadd, type: 3}
-  - {fileID: 8104574526218033235, guid: f05161ad135002947a2cb40208b7c6ce, type: 3}
-  - {fileID: 8104574526218033235, guid: f05161ad135002947a2cb40208b7c6ce, type: 3}
-  - {fileID: 6271810473116845871, guid: 48a49cf6b4e736843b4da5c0e8d8c218, type: 3}
-  - {fileID: 6271810473116845871, guid: 48a49cf6b4e736843b4da5c0e8d8c218, type: 3}
-  - {fileID: 6271810473116845871, guid: 48a49cf6b4e736843b4da5c0e8d8c218, type: 3}
+  - {fileID: -4994006405915223380, guid: 48a49cf6b4e736843b4da5c0e8d8c218, type: 3}
+  - {fileID: 1688411798087800555, guid: f05161ad135002947a2cb40208b7c6ce, type: 3}
+  - {fileID: -6517646847713442431, guid: 060b1dadcc7c68d40acddcc2c8fdaadd, type: 3}
