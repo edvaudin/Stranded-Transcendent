@@ -105,6 +105,11 @@ MonoBehaviour:
   lootTable: {fileID: 11400000, guid: 4d33453da25cfca42b714c542ae15a06, type: 2}
   hurt: {fileID: 8300000, guid: cdcf2ac6a1b5deb40997413a0e0e16d0, type: 3}
   deathParticles: {fileID: 6711814327264192794, guid: eb271196fe9db3c4ba8816fea101712c, type: 3}
+  bloodSprites:
+  - {fileID: 21300000, guid: c808a462a4c722d4bbbc54f93dfbcef0, type: 3}
+  - {fileID: 21300000, guid: 4d58dfe932714c940abadc36173f9502, type: 3}
+  - {fileID: 21300000, guid: e5e436a95d9735843a395169b6e34a48, type: 3}
+  bloodDecal: {fileID: 6889067933491405550, guid: c746c054c9f5cad4a8c30a8b7ad144de, type: 3}
   projectile: {fileID: -706952548970084690, guid: 096a0eebd0003244183a110c22d3c8d2, type: 3}
   fireRate: 2
   projectileSpawnGap: 2

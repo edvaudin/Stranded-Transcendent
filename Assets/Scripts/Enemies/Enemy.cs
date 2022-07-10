@@ -14,10 +14,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected float rotationDamping = 0.2f;
     [SerializeField] protected int meleeDamage = 1;
     [SerializeField] LootTable lootTable;
+
     [Header("Audio")]
     [SerializeField] AudioClip hurt;
     [SerializeField] GameObject deathParticles;
     protected AudioSource audioSource;
+
+    [Header("Blood")]
+    [SerializeField] List<Sprite> bloodSprites;
+    [SerializeField] GameObject bloodDecal;
 
     protected float timeSinceLastSawPlayer = Mathf.Infinity;
     protected bool shouldAttack = true;
@@ -48,7 +53,15 @@ public class Enemy : MonoBehaviour
     private void OnHurt(int value)
     {
         audioSource.PlayOneShot(hurt);
+        SpawnBlood();
     }
+
+    private void SpawnBlood()
+    {
+        SpriteRenderer sr = Instantiate(bloodDecal, transform.position, Quaternion.identity).GetComponent<SpriteRenderer>();
+        sr.sprite = bloodSprites[UnityEngine.Random.Range(0, bloodSprites.Count)];
+    }
+
     private void UpdateTimers()
     {
         timeSinceLastSawPlayer += Time.deltaTime;
