@@ -60,10 +60,14 @@ public class TileAutomator : MonoBehaviour
                 if (currentTerrainMap[x, y] == 0)
                 {
                     wallMap.SetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0), wallTile);
+                    //wallMap.SetTile(new Vector3Int(x - width / 2, y - height / 2, 0), wallTile);
+                    //wallMap.SetTile(new Vector3Int(x, y, 0), wallTile);
                 }
                 else if (currentTerrainMap[x, y] == 1)
                 {
                     groundMap.SetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0), groundTile);
+                    //groundMap.SetTile(new Vector3Int(x - width / 2, y - height / 2, 0), groundTile);
+                    //groundMap.SetTile(new Vector3Int(x, y, 0), groundTile);
                 }
             }
         }
@@ -73,19 +77,15 @@ public class TileAutomator : MonoBehaviour
             for (int y = 0; y < height; y++)
             {
                 GameObject tileOverlayInstance = Instantiate(tileOverlay, new Vector2(-x + width / 2, -y + height / 2), Quaternion.identity);
-                tileOverlayInstance.transform.parent = transform;
-                tileOverlayInstance.GetComponentInChildren<TMP_Text>().text = $"{x},{y}";
-            }
-        }
 
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
+                tileOverlayInstance.transform.parent = transform;
+                TileOverlay to = tileOverlayInstance.GetComponent<TileOverlay>();
+                to.SetText($"{-x + width / 2},{-y + height / 2}");
+
                 TileBase wall = wallMap.GetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0));
                 TileBase ground = groundMap.GetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0));
-                if (wall != null) { Debug.Log($"wall found at ({x},{y})"); }
-                else if (ground != null) { Debug.Log($"ground found at ({x},{y})"); }
+                if (wall != null) { to.SetWall(); }
+                else if (ground != null) { to.SetGround(); }
             }
         }
     }
