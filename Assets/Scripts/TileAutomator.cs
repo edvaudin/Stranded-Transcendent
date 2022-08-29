@@ -1,6 +1,8 @@
 ﻿using System.CodeDom.Compiler;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
+using TMPro;
 
 public class TileAutomator : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class TileAutomator : MonoBehaviour
     [Range(1, 8)] public int neighboursNeededForBirth;
     [Range(1, 8)] public int minimumNeighbours;
     [Range(1, 30)] public int repetitions;
+    [SerializeField] GameObject tileOverlay;
 
     private int[,] currentTerrainMap;
     private int[,] proposedTerrainMap;
@@ -62,6 +65,27 @@ public class TileAutomator : MonoBehaviour
                 {
                     groundMap.SetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0), groundTile);
                 }
+            }
+        }
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                GameObject tileOverlayInstance = Instantiate(tileOverlay, new Vector2(-x + width / 2, -y + height / 2), Quaternion.identity);
+                tileOverlayInstance.transform.parent = transform;
+                tileOverlayInstance.GetComponentInChildren<TMP_Text>().text = $"{x},{y}";
+            }
+        }
+
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                TileBase wall = wallMap.GetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0));
+                TileBase ground = groundMap.GetTile(new Vector3Int(-x + width / 2, -y + height / 2, 0));
+                if (wall != null) { Debug.Log($"wall found at ({x},{y})"); }
+                else if (ground != null) { Debug.Log($"ground found at ({x},{y})"); }
             }
         }
     }
@@ -136,6 +160,10 @@ public class TileAutomator : MonoBehaviour
     {
         wallMap.ClearAllTiles();
         groundMap.ClearAllTiles();
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     private void NullifyTerrainMap() => currentTerrainMap = null;
